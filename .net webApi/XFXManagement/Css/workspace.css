@@ -1,0 +1,37 @@
+
+.filter {
+}
+
+    .filter .row {
+        padding-bottom: 10px;
+    }
+
+        .filter .row input[type=text] {
+            width: 100px;
+        }
+
+        .filter .row > label {
+            margin-left: 10px;
+        }
+
+.GridView {
+    text-align: center;
+    width: 100%;
+}
+
+.Detail {
+    width: 100%;
+}
+
+    .Detail tr:first-child + tr > td:first-child {
+        width: 150px;
+    }
+
+    .Detail td, .Detail th {
+        padding-left: 10px;
+    }
+
+.HeadPortrait img {
+    width: 4em;
+    height: 4em;
+}

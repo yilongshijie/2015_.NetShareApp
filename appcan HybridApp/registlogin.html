@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+    
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg headPlaceholder uhide">
+        <div class="head   bc-head bc-text-head  ">
+            <div class="nav-left nav-active-home">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center"></div>
+            <div class="nav-right">
+            </div>
+        </div>
+        <div class="registlogin">
+            <p class="tel">
+                <label>
+                    <b class="iconfont icon-b"></b>
+
+                    <input type="text" name="tel" placeholder="输入手机号" />
+                </label>
+            </p>
+
+            <p class="mima">
+                <label>
+                    <b class="iconfont icon-mima"></b>
+
+                    <input type="password" name="password" placeholder="输入密码，不小于6位" />
+                </label>
+            </p>
+
+            <p class="yanzhengma">
+                <label>
+                    <b class="iconfont icon-yanzhengma"></b>
+                    <input type="text" name="yzmtext" placeholder="输入短信验证码" />
+                </label>
+                <input type="button" value="获取验证码" />
+            </p>
+
+            <p class="xingbie nan">
+                <span>男</span><span class="big"><b class="iconfont icon-iconfont94"></b><b class="iconfont icon-iconfont95"></b></span><span>女</span>
+            </p>
+
+        </div>
+        <div class="buttonDiv">
+            <span class="input" id="submit"  >注册</span>
+        </div>
+
+        <div class="yiyouzhanghao">
+            已有账号，
+            <span>登录</span>
+        </div>
+        <div class="meiyouzhanghao">
+            <p>
+                没有账号，
+                <span>注册</span>
+            </p>
+
+            <p>
+                <a style=" text-decoration:underline">忘记密码?</a>
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/registlogin.js"></script>
+<script>
+    appcan.ready(function () {
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+    })
+</script>

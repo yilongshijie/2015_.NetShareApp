@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+
+
+</head>
+
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">商品评价</div>
+            <div class="nav-right">
+            </div>
+        </div>
+
+
+        <div class="huiFuKuang">
+            <div class="huifudiv">
+
+
+                <div class="huifuText backgoundColor" contenteditable="true">
+
+                </div>
+                <b class="submit bc-head bc-text-head  ">发送</b>
+            </div>
+            <div class="faceList remove">
+                <ul></ul>
+            </div>
+        </div>
+
+        <div class="loading uhide">
+            <img src="StyleSheet/load.gif" />
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/huifu.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script>
+    appcan.ready(function () {
+        var request = localStorage.getItem("request");
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+        window.shangpinpingjia = true;
+
+        var huiFuKuang = $(".huiFuKuang");
+        appcan.Huifu({
+            huiFuKuang: huiFuKuang
+        })
+
+        huiFuKuang.find(".submit").on("tap", function () {
+            if (!islogin()) return;
+            if (huiFuKuang.find(".huifuText").html().trim() == "") return;
+
+            $(".loading").removeClass("uhide");
+
+            var text = huiFuKuang.find(".huifuText").html();
+            appcan.request.ajax({
+                url: url + "/Order/GoodPingjia",
+                type: "post",
+                dataType: "json",
+                data: $.extend({ orderID: request, Detail: text }, sendtoken()),
+                success: function (data) {
+                    $(".loading").addClass("uhide");
+                    huiFuKuang.find(".huifuText").html("");
+                    huiFuKuang.find(".faceList").addClass("remove");
+                    appcan.window.evaluateScript("shoporderlist", 'window.reload();');
+                    appcan.window.close(0, 0);
+                },
+                error: function () {
+                    $(".loading").addClass("uhide");
+                    
+                    appcan.window.openToast("请求失败", 2500, 5, 0)
+                }
+            })
+
+
+
+        })
+
+
+
+
+    })
+
+</script>

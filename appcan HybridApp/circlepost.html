@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+
+</head>
+<body class="um-vp">
+<div class="page bc-bg headPlaceholder pageload">
+    <div id="header" class="head  head-detail">
+        <div class="nav-left nav-left-active">
+            <div class="iconfont icon-fanhui fa-1-3x"></div>
+        </div>
+        <div class="nav-center">帖子详情</div>
+        <div class="nav-right iconfont icon-gengduo nav-left-active">
+        </div>
+    </div>
+
+    <div id="post" class="uhide">
+    </div>
+    <p class="huifuNum uhide">
+    </p>
+    <div id="huifu" class="uhide">
+    </div>
+
+    <div class="huiFuKuang ">
+        <div class="huifudiv">
+            <span class="photo iconfont icon-zhaopian"></span>
+            <span class="face iconfont icon-biaoqing"></span>
+
+            <div class="huifuText backgoundColor" contenteditable="true">
+
+            </div>
+            <b class="submit bc-head bc-text-head  ">发送</b>
+        </div>
+        <div class="faceList remove">
+            <ul></ul>
+        </div>
+    </div>
+
+    <div class="loading uhide">
+        <img src="StyleSheet/load.gif" />
+    </div>
+
+    <div class="backgroundCover uhide">
+    </div>
+    <div class="ChildPage ">
+        <ul class="backgoundColor">
+            <li>举报</li>
+            <li data-type="event" data-event="jubao">广告</li>
+            <li data-type="event" data-event="jubao">色情</li>
+            <li data-type="event" data-event="jubao">骚扰</li>
+            <li data-type="event" data-event="jubao">泄露隐私</li>
+            <li data-type="event" data-event="jubao">其他</li>
+            <li data-type="event" data-event="guanbi"> <span>取消</span> </li>
+        </ul>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/circlepost.js"></script>
+<script src="JavaScript/huifu.js"></script>
+<script src="JavaScript/upload.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+
+<script>
+    appcan.ready(function () {
+
+            appcan.window.evaluateScript("circlecreatepost", 'appcan.window.close(0, 0)');
+            var request = localStorage.getItem("request");
+            $(".nav-left").on("tap", function () {
+                appcan.window.close(-1);
+            })
+            $(".nav-right").on("tap", function () {
+                $(".backgroundCover").removeClass("uhide");
+                $(".ChildPage").removeClass("closePage").addClass("openPage")
+            })
+            var post = appcan.circlePost({
+                selector: '#post',
+                lievent: false,
+
+            });
+            var huifu = appcan.circlePost({
+                selector: '#huifu',
+                lievent: false,
+
+            });
+            var huiFuKuang = $(".huiFuKuang");
+            appcan.Huifu({
+                huiFuKuang: huiFuKuang
+            })
+
+            huiFuKuang.find(".submit").on("tap", function () {
+                if (!islogin()) return;
+                if (localStorage.getItem("authentication_userLevel") == "0") {
+                    appcan.window.openToast("只有1级以上才可以回复，赶紧升级吧", 2500, 5, 0);
+                    return;
+                }
+                if (localStorage.getItem("authentication_userBanned") == "1") {
+                    appcan.window.openToast("不好意思，该账号被禁言中...", 2500, 5, 0);
+                    return;
+                }
+                if (huiFuKuang.find(".huifuText").html().trim() == "") return;
+
+                $(".loading").removeClass("uhide");
+                var list = huiFuKuang.find(".huifuText").find(".uploadimg");
+
+                window.ajaxresult = [];
+                $.when(upload.upload(list, ajaxresult))
+                        .done(function () {
+                            var srcList = _.map(window.ajaxresult, function (item) { return item.src });
+                            huiFuKuang.find(".huifuText").find(".uploadimg").remove();
+                            var text = huiFuKuang.find(".huifuText").html();
+                            appcan.request.ajax({
+                                url: url + "/CirclePost/CreateReply",
+                                type: "post",
+                                dataType: "json",
+                                data: $.extend({ id: request, text: text, imglist: srcList }, sendtoken()),
+                                success: function (data) {
+                                    $(".loading").addClass("uhide");
+                                    huifu.add(data);
+                                    $("body").scrollTop($("div:first-child").height());
+                                    jQuery('#huifu>div:last-child img').lazyload({
+                                        effect: 'fadeIn',
+                                        threshold: 200
+                                    });
+                                },
+                                error: function () {
+                                    $(".loading").addClass("uhide");
+
+                                    appcan.window.openToast("请求失败", 2500, 5, 0)
+                                }
+                            })
+                            huiFuKuang.find(".huifuText").html("");
+                            huiFuKuang.find(".faceList").addClass("remove");
+
+                        })
+                        .fail(function () {
+                            $(".loading").addClass("uhide");
+
+                            appcan.window.openToast("请求失败", 2500, 5, 0)
+                        })
+
+            })
+            appcan.request.ajax({
+                url: url + "/CirclePost/Get",
+                dataType: "json",
+                data: $.extend({ id: request }, sendtoken()),
+                success: function (data) {
+                    data[0].huifu = false;
+                    data[0].louzhu = true;
+                    post.add(data);
+                    if ((data[0].State & 2) == 0) {
+                        $(".nav-right").css("visibility", "hidden")
+                        $(".huifuNum").html("<b class='sc-text-active'>正在审核...</b>").removeClass("uhide");
+                        $(".huiFuKuang").addClass("uhide");
+                    }
+                    else {
+                        $(".huifuNum").html("全部回复(" + data[0].ReplyNum + ")").removeClass("uhide");
+                    }
+
+                    jQuery('#post img').lazyload({
+                        effect: 'fadeIn',
+                        threshold: 200
+                    });
+
+                },
+                error: function () {
+                    appcan.window.openToast("请求失败", 2500, 5, 0)
+                }
+            })
+
+            appcan.request.ajax({
+                url: url + "/CirclePost/GetRepeat",
+                dataType: "json",
+                data: $.extend({ id: request }, sendtoken()),
+                success: function (data) {
+                    huifu.add(data);
+                    jQuery('#huifu img').lazyload({
+                        effect: 'fadeIn',
+                        threshold: 200
+                    });
+                    $(".page.pageload").removeClass("pageload");
+                },
+                error: function () {
+                    appcan.window.openToast("请求失败", 2500, 5, 0)
+                    $(".page.pageload").removeClass("pageload");
+                }
+            })
+
+            $('#post ,#huifu').on("tap", ".people .touxiang img", function () {
+                localStorage.setItem("request", $(this).attr("data-userid"))
+                appcan.openWinWithUrl("userInfo", "userInfo.html", 2, 0, 400)
+            })
+
+            $('#huifu').on("tap", ".article,.divright", function () {
+                localStorage.setItem("request", $(this).parents(".circlePostItem").attr("data-id") + "#" + $(this).parents(".circlePostItem").attr("data-CirclePostReplyID")+
+                        "#" + $(this).parents(".circlePostItem").attr("data-Floor"))
+                appcan.openWinWithUrl("circlepostreplay", "circlepostreplay.html", 2, 0, 400)
+            })
+
+            $(".ChildPage").on("tap", "li[data-event=guanbi]", function () {
+                $(".ChildPage").removeClass("openPage").addClass("closePage")
+                $(".backgroundCover").addClass("uhide");
+                return;
+            })
+            $(".ChildPage").on("tap", "li[data-event=jubao]", function () {
+
+                if (!islogin()) return;
+                var self = this;
+                appcan.request.ajax({
+                    url: window.url + "/CirclePost/AddComplaint",
+                    dataType: "json",
+                    type: "Post",
+                    data: $.extend({ CirclePostID: request, Reason: $(self).html() }, sendtoken()),
+                    success: function (data) {
+                        $(".ChildPage").removeClass("openPage").addClass("closePage")
+                        $(".backgroundCover").addClass("uhide");
+
+                        appcan.window.openToast("已举报", 2500, 5, 0)
+
+                    }, error: function () {
+                        $(".ChildPage").removeClass("openPage").addClass("closePage")
+                        $(".backgroundCover").addClass("uhide");
+
+                        appcan.window.openToast("请求失败", 2500, 5, 0)
+                    }
+                })
+            })
+
+    })
+</script>

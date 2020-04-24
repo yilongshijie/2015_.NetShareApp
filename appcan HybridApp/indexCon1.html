@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <script src="JavaScirptPlugIn/jquery.js"></script>
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div class="head   bc-head bc-text-head ">
+            <div class="nav-left nav-active-home">
+                <span class="iconfont icon-fenlei fa-1-5x "></span>
+            </div>
+            <div class="nav-center search">
+                <p>
+                    <input type="text" placeholder="搜索感兴趣的商品" />
+                </p>
+            </div>
+            <div class="nav-right nav-active-home" style="width:4em;">
+                <span class="head-detail button-right submit"><var class="iconfont icon-search"></var> 搜索</span>
+            </div>
+        </div>
+        <div id="iSlider-wrapper">
+        </div>
+        <script>
+            var width = $("#iSlider-wrapper").width();
+            $("#iSlider-wrapper").height(width * 0.7);
+            $("body").append("<style type=\"text/css\">#iSlider-wrapper img{ height:" + $("#iSlider-wrapper").height() + "px;}" +
+                    ".shopHomeModel h3 img{height:" + width * 0.3 + "px;}" +
+                    ".shopHomeModel p img{height:" + width * 0.4 + "px;}" +
+                    "</style>");
+        </script>
+        <div id="shopCharacteristic" class="backgoundColor">
+        </div>
+        <div id="shopHot" class="backgoundColor">
+        </div>
+        <!--<div class="hotTopics backgoundColor hotTopicsList">
+        </div>-->
+        <div class="shopHomeList">
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScirptPlugIn/iSlider.js"></script>
+<script src="JavaScirptPlugIn/iSlider.plugin.dot.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script src="js/appcan.tab.js"></script>
+<script src="JavaScript/shophot.js"></script>
+<script src="JavaScript/shophomelist.js"></script>
+<!--<script src="JavaScript/shophottopics.js"></script>-->
+
+<script>
+    appcan.ready(function () {
+
+        $(".nav-left").on("tap", function () {
+            appcan.openWinWithUrl("shoptype", "shoptype.html", 2, 0, 400)
+        })
+
+        $(".button-right.submit").on("tap", function () {
+            var val = $.trim($(".search input").val());
+            if (val.length > 0) {
+
+                localStorage.setItem("request", "{search:'" + val + "',text:'搜索'}")
+
+                appcan.openWinWithUrl("shoplist", "shoplist.html", 2, 0, 400);
+            }
+        })
+
+        $("#iSlider-wrapper").on("tap", "li img", function () {
+            localStorage.setItem("request", $(this).attr("data-id"));
+            appcan.openWinWithUrl("shopdetail", "shopdetail.html", 2, 0, 400)
+        })
+        appcan.request.ajax({
+            url: url + "/Advertisement/Get",
+            type: "GET",
+            dataType: "json",
+            data: { type: 0 },
+            success: function (data) {
+
+                var list = _.map(data, function (item) {
+                    return { content: "<img   src=\"" + item.Image + "\"   data-id=\"" + item.Link + "\"  /> <label>" + item.Title + "</label>" }
+                });
+                var S = new iSlider({
+                    dom: document.getElementById('iSlider-wrapper'),
+                    data: list,
+                    isLooping: 1,
+                    isOverspread: 1,
+                    animateTime: 800,
+                    duration: 4000,
+                    plugins: ['dot'],
+                    isAutoplay: true
+                });
+
+                $(".islider-dot-wrap").css("top", $("#iSlider-wrapper").height() * 0.9);
+
+            },
+            error: function () {
+
+                appcan.request.ajax({
+                    url: url + "/Advertisement/Get",
+                    type: "GET",
+                    dataType: "json",
+                    data: { type: 0 },
+                    success: function (data) {
+
+                        var list = _.map(data, function (item) {
+                            return { content: "<img   src=\"" + item.Image + "\"   data-id=\"" + item.Link + "\"  /> <label>" + item.Title + "</label>" }
+                        });
+                        var S = new iSlider({
+                            dom: document.getElementById('iSlider-wrapper'),
+                            data: list,
+                            isLooping: 1,
+                            isOverspread: 1,
+                            animateTime: 800,
+                            duration: 4000,
+                            plugins: ['dot'],
+                            isAutoplay: true
+                        });
+
+                        $(".islider-dot-wrap").css("top", $("#iSlider-wrapper").height() * 0.9);
+
+                    },
+                    error: function () {
+
+                    }
+                })
+
+            }
+        })
+        var shopCharacteristic = appcan.tab({
+            selector: "#shopCharacteristic",
+            hasIcon: true,
+            hasAnim: false,
+            hasLabel: true,
+            hasBadge: true,
+            index: 0,
+            data: [
+                {
+                    label: "限时特价",
+                    icon: " iconfont   icon-iconqianggou "
+                },
+                {
+                    label: "分类",
+                    icon: " iconfont  icon-fenlei2  "
+                },
+                {
+                    label: "女神体验",
+                    icon: "iconfont icon-shigantiyantu ",
+                }, {
+                    label: "常见问题",
+                    icon: " iconfont icon-tiwen01  "
+                }]
+        });
+        shopCharacteristic.on("tap", function (obj, index) {
+
+        })
+        $(".ulev-1.ub.ub-f1").on("tap", function () {
+
+            switch ($(this).attr("data-index")) {
+                case "0": localStorage.setItem("request", "{state:4,text:'限时特价'}")
+                    appcan.openWinWithUrl("shoplist", "shoplist.html", 2, 0, 400); break;
+                case "1": appcan.openWinWithUrl("shoptype", "shoptype.html", 2, 0, 400); break;
+                case "2": appcan.window.evaluateScript("root", '$("#footer1 .ulev-1.ub.ub-f1").eq(2).trigger("tap")'); break;
+                case "3": localStorage.setItem("request", 6);
+                    appcan.openWinWithUrl("circledetaillist", "circledetaillist.html", 2, 0, 400); break;
+            }
+        })
+        var shopHot = appcan.shophot({
+            selector: '#shopHot'
+        })
+        shopHot.set([{
+            icon: "xinpin",
+            label: "周 一 新 品",
+            state: "8"
+        }, {
+            icon: "remai",
+            label: "HOT 热 卖",
+            state: "16"
+        }, {
+            icon: "baoyou",
+            label: "包 邮 专 区",
+            state: "32"
+        }, {
+            icon: "qingshe",
+            label: "女 神 必 备",
+            state: "64"
+        }])
+
+        //var shopHot = appcan.shophottopics({
+        //    selector: '.hotTopics',
+        //    home: true,
+        //    data: [{img: "images/d726093349.png", tite: "SDF", id: "Sdf"}]
+        //})
+        //jQuery('.hotTopics img').lazyload({
+        //    effect: 'fadeIn',
+        //    threshold: 200
+        //});
+        var shophomelist = appcan.shophomelist({
+            selector: '.shopHomeList',
+        });
+        appcan.request.ajax({
+            url: url + "/GoodGategory/GetIndex",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                _.each(data, function (item) {
+                    var flex2 = _.filter(item.GoodHome, function (goodHome) { return goodHome.Flex == 2 })
+                    var flex1 = _.filter(item.GoodHome, function (goodHome) { return goodHome.Flex == 1 })
+                    if (flex1.length >= 4 && flex2.length >= 1) {
+                        shophomelist.add([{
+                            Image: item.Image,
+                            Name: item.Name,
+                            GoodGategoryID: item.GoodGategoryID,
+                            Flex2: flex2,
+                            Flex1: flex1
+                        }]);
+                    }
+                    else if (flex1.length >= 6 && flex2.length == 0) {
+                        shophomelist.add([{
+                            Image: item.Image,
+                            Name: item.Name,
+                            GoodGategoryID: item.GoodGategoryID,
+                            Flex1: flex1,
+                        }]);
+                    }
+                })
+                jQuery('.shopHomeModel img').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+            },
+            error: function () {
+                 
+                appcan.request.ajax({
+                    url: url + "/GoodGategory/GetIndex",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        _.each(data, function (item) {
+                            var flex2 = _.filter(item.GoodHome, function (goodHome) { return goodHome.Flex == 2 })
+                            var flex1 = _.filter(item.GoodHome, function (goodHome) { return goodHome.Flex == 1 })
+                            if (flex1.length >= 4 && flex2.length >= 1) {
+                                shophomelist.add([{
+                                    Image: item.Image,
+                                    Name: item.Name,
+                                    GoodGategoryID: item.GoodGategoryID,
+                                    Flex2: flex2,
+                                    Flex1: flex1
+                                }]);
+                            }
+                            else if (flex1.length >= 6 && flex2.length == 0) {
+                                shophomelist.add([{
+                                    Image: item.Image,
+                                    Name: item.Name,
+                                    GoodGategoryID: item.GoodGategoryID,
+                                    Flex1: flex1,
+                                }]);
+                            }
+                        })
+                        jQuery('.shopHomeModel img').lazyload({
+                            effect: 'fadeIn',
+                            threshold: 200
+                        });
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+        });
+
+    })
+</script>

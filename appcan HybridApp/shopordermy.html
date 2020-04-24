@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+
+    <style>
+        .productBottomOccupying {
+            height: 3.1em;
+        }
+
+        .shopCarBottom {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 0.3em;
+            box-sizing: border-box;
+        }
+
+            .shopCarBottom .heji {
+                padding-left: 0;
+            }
+    </style>
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg  headPlaceholder">
+
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">订单详情</div>
+            <div class="nav-right  ">
+            </div>
+        </div>
+        <div class="orderpage uhide">
+            <div class="shouhuodizhi backgoundColor">
+                <span></span>
+                <div class="divren">如订单遇到问题，请联系客服。</div>
+            </div>
+            <div class="shouhuodizhi backgoundColor">
+                <span class="iconfont  icon-zhuangtai " style="color:#EB6996"></span>
+                <div class="divren">交易状态 <var class="jiaoyizhuangtai" style="color:#EB6996"></var></div>
+            </div>
+            <div class="shouhuodizhi backgoundColor wuliu uhide">
+                <span class="iconfont  icon-tubiao "></span>
+                <div class="divren">
+                    <p> 物流公司 <var class="wuliugongsi"></var></p>
+                    <p>物流号 <var class="wuliuhao"></var></p>
+                </div>
+                <div class="iconfont icon-jinru "></div>
+            </div>
+            <div class="shouhuodizhi backgoundColor">
+                <span class="iconfont  icon-didian1 "></span>
+                <div class="divren">
+                    <p class="ren">
+                        收货人:<var class="shouhuoren"></var>
+                        <var class="shouhuorenTel"></var>
+                    </p>
+                    <p class="di">收货地址: <var class="shohuodizhi"></var></p>
+                </div>
+
+            </div>
+            <ul class="shopcarUl orderUl" style="margin-top: 0.3em"></ul>
+
+            <p class="orderTitle">支付方式</p>
+            <ul class="payway backgoundColor">
+                <li>
+                    <span>支付宝</span>
+                    <p>  <span class="iconfont icon-danxuanxuanzhong " data-type="zfb"></span></p>
+                </li>
+                <!--<li>
+                    <span>微信支付</span>
+                    <p>  <span class="iconfont icon-danxuanmeixuan " data-type="weixin"></span></p>
+                </li>-->
+            </ul>
+
+            <p class="orderTitle">结算详情</p>
+            <ul class="jieusanxiangqing backgoundColor">
+                <li>
+                    <span>邮费</span>
+                    <p> <var class="youfei"></var></p>
+                </li>
+                <li>
+                    <span>支付总费用(含邮费)</span>
+                    <p><var class="zhifuzongfeiyong"></var></p>
+                </li>
+                <li class="orderliuyan">
+                    <span>买家留言</span> <p style="flex:1;padding-left:0.2em;"></p>
+                </li>
+            </ul>
+
+            <div class="productBottomOccupying uhide"></div>
+            <div class="shopCarBottom  backgoundColor uhide">
+                <span class="heji">
+                    合计:
+                    <var class="zhifuzongfeiyong"></var>
+                </span>
+                <span class="jiesuan">
+
+                    <b class="eable">支 付</b>
+                </span>
+            </div>
+
+        </div>
+        <div class="backgroundCover uhide">
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/shopordermy.js"></script>
+
+<script>
+    appcan.ready(function () {
+        var request = localStorage.getItem("request");
+        window.data = {};
+        appcan.button(".nav-left", "ani-act", function () {
+            appcan.window.close(-1);
+
+        })
+
+        appcan.request.ajax({
+            url: url + "/Order/GetGoodOrderMyView",
+            dataType: "json",
+            type: "Post",
+            data: $.extend({ orderid: request }),
+            success: function (data) {
+                appcan.shopordermy({
+                    selector: ".shopcarUl",
+                    data: data.orderDetailsModel.OrderDetailModelList
+                });
+
+                $(".youfei").html("￥" + data.LogisticsPrice);
+
+                $(".zhifuzongfeiyong").html("￥" + data.PaymentPrice);
+
+                $(".shouhuoren").html(data.LogisticsPerson);
+                $(".shouhuorenTel").html(data.LogisticsTel);
+                $(".shohuodizhi").html(data.LogisticsAddress);
+                $(".orderliuyan p").html(data.Remark1);
+                $(".jiaoyizhuangtai").html(data.StateText);
+                $(".wuliugongsi").html(data.LogisticsCompany);
+                $(".wuliuhao").html(data.LogisticsNumber);
+
+                if ((data.State & 4) > 0) {
+                    $(".wuliu").removeClass("uhide");
+                }
+                $(".orderpage").removeClass("uhide");
+                if ((data.State & 2) == 0) {
+                    window.data = data.createOrder;
+                    $(".shopCarBottom .zhifuzongfeiyong").html(window.data.fee);
+                    $(".productBottomOccupying,.shopCarBottom").removeClass("uhide");
+                }
+            },
+            error: function () {
+
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        })
+
+        $(".wuliu").on("tap", function () {
+            var v = {
+                wuliugongsi: $(this).find(".wuliugongsi").html(),
+                wuliuhao: $(this).find(".wuliuhao").html()
+            }
+            localStorage.setItem("request", JSON.stringify(v));
+            appcan.openWinWithUrl("shoporderwuliu", "shoporderwuliu.html", 2, 0, 400);
+        })
+
+        $(".jiesuan").on("tap", function () {
+            $(".backgroundCover").addClass("uhide");
+            uexAliPay.onStatus = function () {
+                appcan.window.evaluatePopoverScript("root", "content_3", 'window.reload()');
+                $(".backgroundCover").removeClass("uhide");
+                appcan.window.evaluateScript("shoporderlist",  'window.reload()');
+                appcan.window.evaluateScript("shopordermy", 'appcan.window.close(0, 0)');
+            };
+            uexWidgetOne.cbError = function () {
+                $(".backgroundCover").removeClass("uhide");
+            };
+            uexAliPay.setPayInfo(data.partner, data.seller, data.rsaPrivate, data.rsaPublic, data.notifyUrl)
+            uexAliPay.pay(data.orderid, data.subject, data.body, data.fee)
+        })
+    })
+</script>

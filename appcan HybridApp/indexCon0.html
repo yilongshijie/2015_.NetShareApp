@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <script src="JavaScirptPlugIn/jquery.js"></script>
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div class="head   bc-head bc-text-head  ">
+            <div class="nav-left nav-active-home"> 
+            </div>
+            <div class="nav-center search">
+                <p>
+                    <input type="text" placeholder="搜索感兴趣的帖子" />
+                </p>
+            </div>
+            <div class="nav-right nav-active-home" style="width:4em;">
+                <span class="head-detail button-right submit"><var class="iconfont icon-search"></var> 搜索</span>
+            </div>
+        </div>
+        <div id="iSlider-wrapper">
+        </div>
+        <script>
+            $("#iSlider-wrapper").height($("#iSlider-wrapper").width() * 0.5);
+            $("body").append("<style  type=\"text/css\"> #iSlider-wrapper img{ height:" + $("#iSlider-wrapper").height() + "px}</style>");
+        </script>
+        <div id="circleCharacteristic" class="backgoundColor">
+        </div>
+        <div class="circleTitle backgoundColor uhide" id="myCircleTitle">
+            <h2>我的圈子</h2>
+        </div>
+        <div class="circleList backgoundColor  uhide" id="myCircleList">
+        </div>
+        <div class="circleTitle  backgoundColor uhide" id="recommendCircleTitle">
+            <h2>推荐圈子</h2>
+        </div>
+        <div class="circleList backgoundColor  uhide" id="recommendCircleList">
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScirptPlugIn/iSlider.js"></script>
+<script src="JavaScirptPlugIn/iSlider.plugin.dot.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script src="JavaScript/circlelist.js"></script>
+<script src="js/appcan.tab.js"></script>
+<script src="JavaScript/xiaoxi.js"></script>
+<script>
+    appcan.ready(function () {
+        appcan.xiaoxi({
+            nav_right: $(".nav-left")
+        })
+
+        $(".button-right.submit").on("tap", function () {
+            var val = $.trim($(".search input").val());
+            if (val.length > 0) {
+
+                localStorage.setItem("request",    val  )
+           
+                appcan.openWinWithUrl("circlesearchlist", "circlesearchlist.html", 2, 0, 400) 
+            }
+        })
+
+
+        var myCircleList = appcan.circleList({
+            selector: '#myCircleList',
+            lievent: true,
+            removeHide: "#myCircleTitle ,#myCircleList",
+            hideAdd: true
+
+        });
+
+        var recommendCircleList = appcan.circleList({
+            selector: '#recommendCircleList',
+            lievent: true,
+            removeHide: "#recommendCircleTitle ,#recommendCircleList"
+        });
+        var circleCharacteristicTabview = appcan.tab({
+            selector: "#circleCharacteristic",
+            hasIcon: true,
+            hasAnim: false,
+            hasLabel: true,
+            hasBadge: true,
+            index: 0,
+            data: [
+                {
+                    label: "附近人",
+                    icon: " iconfont   icon-fujin  "
+                }, {
+                    label: "活动",
+                    icon: " iconfont  icon-huodong  "
+                }, {
+                    label: "性健康咨询师",
+                    icon: " iconfont icon-mingrentang  "
+                }, {
+                    label: "签到",
+                    icon: "iconfont icon-qiandao ",
+                }]
+        });
+
+        $("#circleCharacteristic .ulev-1.ub.ub-f1").on("tap", function () {
+            switch ($(this).attr("data-index")) {
+                case "0":
+                    appcan.openWinWithUrl("fujinren", "fujinren.html", 2, 0, 400); break;
+                case "1":
+                    appcan.openWinWithUrl("huodong", "huodong.html", 2, 0, 400); break;
+                case "2": localStorage.setItem("request", 7);
+                    appcan.openWinWithUrl("circledetaillist", "circledetaillist.html", 2, 0, 400); break;
+                case "3": if (!islogin()) return;
+                    qiandao(); break;
+            }
+
+        })
+        function qiandao() {
+            if (!islogin()) return;
+            appcan.request.ajax({
+                url: url + "/User/qiandao",
+                type: "POST",
+                dataType: "json",
+                data: $.extend(sendtoken()),
+                success: function (data) {
+                    if (data) {
+                        appcan.window.openToast("签到成功，获得经验" + data, 2500, 5, 0)
+                    }
+                    else {
+                        appcan.window.openToast("今天已经签到", 2500, 5, 0)
+                    }
+                },
+                error: function () {
+                }
+            })
+        }
+        $("#iSlider-wrapper").on("tap", "li img", function () {
+            localStorage.setItem("request", $(this).attr("data-id"));
+            appcan.openWinWithUrl("circlepost", "circlepost.html", 2, 0, 400)
+        })
+        window.reload = function () {
+            $(".circleTitle , .circleList").addClass("uhide");
+            appcan.request.ajax({
+                url: url + "/Advertisement/Get",
+                type: "GET",
+                dataType: "json",
+                data: { type: 1 },
+                success: function (data) {
+
+                    var list = _.map(data, function (item) {
+                        return { content: "<img  src=\"" + item.Image + "\"   data-id=\"" + item.Link + "\" /> <label>" + item.Title + "</label>" }
+                    });
+                    var S = new iSlider({
+                        dom: document.getElementById('iSlider-wrapper'),
+                        data: list,
+                        isLooping: 1,
+                        isOverspread: 1,
+                        animateTime: 800,
+                        duration: 4000,
+                        plugins: ['dot'],
+                        isAutoplay: true
+                    });
+
+                    $(".islider-dot-wrap").css("top", $("#iSlider-wrapper").height() * 0.9);
+
+                },
+                error: function () {
+                    
+                    appcan.request.ajax({
+                        url: url + "/Advertisement/Get",
+                        type: "GET",
+                        dataType: "json",
+                        data: { type: 1 },
+                        success: function (data) {
+
+                            var list = _.map(data, function (item) {
+                                return { content: "<img  src=\"" + item.Image + "\"   data-id=\"" + item.Link + "\" /> <label>" + item.Title + "</label>" }
+                            });
+                            var S = new iSlider({
+                                dom: document.getElementById('iSlider-wrapper'),
+                                data: list,
+                                isLooping: 1,
+                                isOverspread: 1,
+                                animateTime: 800,
+                                duration: 4000,
+                                plugins: ['dot'],
+                                isAutoplay: true
+                            });
+
+                            $(".islider-dot-wrap").css("top", $("#iSlider-wrapper").height() * 0.9);
+
+                        },
+                        error: function () {
+
+                        }
+                    })
+
+                }
+            })
+
+
+            appcan.request.ajax({
+                url: url + "/circle/GetAll",
+                type: "POST",
+                dataType: "json",
+                data: $.extend({}, sendtoken()),
+                success: function (data) {
+                    recommendCircleList.set(_.filter(data, function (e) {
+                        return e.State == 0
+                    }))
+                    myCircleList.set(_.filter(data, function (e) {
+                        return e.State != 0
+                    }))
+                    jQuery('.circleList img').lazyload({
+                        effect: 'fadeIn',
+                        threshold: 200
+                    });
+                },
+                error: function () {
+
+                    appcan.request.ajax({
+                        url: url + "/circle/GetAll",
+                        type: "POST",
+                        dataType: "json",
+                        data: $.extend({}, sendtoken()),
+                        success: function (data) {
+                            recommendCircleList.set(_.filter(data, function (e) {
+                                return e.State == 0
+                            }))
+                            myCircleList.set(_.filter(data, function (e) {
+                                return e.State != 0
+                            }))
+                            jQuery('.circleList img').lazyload({
+                                effect: 'fadeIn',
+                                threshold: 200
+                            });
+                        },
+                        error: function () {
+
+                            appcan.window.openToast("请求失败", 2500, 5, 0)
+                        }
+                    })
+
+                }
+            })
+
+        }
+        window.reload();
+    })
+
+
+</script>

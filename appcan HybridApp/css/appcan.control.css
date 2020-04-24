@@ -1,0 +1,132 @@
+﻿.btn {
+    padding: .2em 0.9em;
+    min-height: 2.2em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.nav-btn {
+    min-height: 2em;
+    min-width: 4em;
+    display: -webkit-box !important;
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-pack: center;
+    box-pack: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.btn-act {
+    opacity: 0.6;
+}
+
+.uinput input, .uinput textarea {
+    margin: 0px;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    padding: .4em 0;
+    line-height: 1.2em;
+    background: none;
+    text-decoration: none;
+    font-size: 1em;
+    display: block;
+}
+
+.uinput textarea {
+    min-height: 5em;
+}
+ 
+.lis {
+    padding: 0.5em;
+    min-height: 2em;
+}
+
+.lis-icon {
+    width: 4em;
+    margin: 0em 0.4em 0em 0px;
+    min-height: 4em;
+}
+
+.lis-icon-s {
+    width: 2em;
+    margin: 0em 0.4em 0em 0px;
+    min-height: 2em;
+}
+
+.lis-icon-ss {
+    width: 1.3em;
+    margin: 0em 1em 0em 0px;
+    min-height: 1.3em;
+}
+
+.lis.group {
+    min-height: 1.6em;
+    padding: 0.1em;
+}
+
+ 
+
+.tab_m {
+    height: 3em;
+}
+
+.tab_l {
+    height: 2em;
+}
+
+.tab_i {
+    height: 2.3em;
+}
+
+.tab_badge {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    right: 1em;
+    top: 0.3em;
+    -webkit-border-radius: 1.2em;
+    border-radius: 1.2em;
+    text-align: center;
+}
+
+.tab_m .item {
+    padding: 0.3em 0;
+}
+
+.tab_l .item {
+    padding: 0.7em 0;
+}
+
+.tab_i .item {
+    padding: 0.4em 0;
+}
+
+.tab_m .focus {
+    position: absolute;
+    height: 100%;
+}
+
+.tab_i .focus, .tab_l .focus {
+    position: absolute;
+    height: 2px;
+    bottom: 0px;
+}
+
+ 
+ 
+
+.uinvisible {
+    width: 0px;
+    height: 0px;
+    margin: 0px;
+    border: 0px;
+    background: none;
+    text-decoration: none;
+}

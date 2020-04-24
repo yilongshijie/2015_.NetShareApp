@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder pageload">
+        <div class="head   bc-head bc-text-head ">
+            <div class="nav-left">
+            </div>
+            <div class="nav-center">体验师</div>
+            <div class="nav-right nav-active-home">
+            </div>
+        </div>
+        <div class="experiencelist">
+            <ul>
+                <li class=" li1">
+                </li>
+                <li class=" li2">
+                </li>
+            </ul>
+            <div class="pageIndexLoad"><img src="StyleSheet/load.gif" /></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/experiencelist.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/xiaoxi.js"></script>
+<script>
+    appcan.ready(function () {
+        var shoplist = appcan.experiencelist({
+            selector: '.experiencelist',
+        });
+        window.pageIndex = {
+            index: 1,
+            end: false
+        }
+        appcan.request.ajax({
+            url: url + "/Experience/Gets",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $(".page.pageload").removeClass("pageload");
+                shoplist.add(data);
+                scrollpage();
+                $('.li1 img ').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+                $('.li2 img').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+            },
+            error: function () {
+                $(".page.pageload").removeClass("pageload");
+            }
+        })
+        function scrollpage() {
+            var resizeTimer = null;
+            $(window).on('scroll', function () {
+
+                if (resizeTimer) {
+                    clearTimeout(resizeTimer)
+                }
+                resizeTimer = setTimeout(function () {
+
+                    if ($(window).scrollTop() + $(window).height() + 20 >= $(document).height() && $(window).scrollTop() > 20) {
+                        if (!window.pageIndex.end) {
+                            $(".pageIndexLoad").show();
+                        }
+                        window.pageIndex.index++;
+                        appcan.request.ajax({
+                            url: url + "/Experience/Gets",
+                            type: "GET",
+                            dataType: "json",
+                            data: { index: window.pageIndex.index },
+                            success: function (data) {
+                                $(".pageIndexLoad").hide();
+                                if (data.length == 0) {
+                                    window.pageIndex.end = true;
+                                    return;
+                                }
+                                shoplist.add(data);
+                                $('.li1 img ').lazyload({
+                                    effect: 'fadeIn',
+                                    threshold: 200
+                                });
+                                $('.li2 img').lazyload({
+                                    effect: 'fadeIn',
+                                    threshold: 200
+                                });
+                            },
+                            error: function () {
+                                $(".pageIndexLoad").hide();
+                            }
+                        })
+                    }
+                }, 250);
+            }
+            );
+        }
+
+        $(".experiencelist").on("tap", "li>div", function () {
+            window.localStorage.setItem("request", JSON.stringify({
+                ExperienceID: $(this).attr("data-GoodExperienceID"),
+                GoodID: $(this).attr("data-GoodID")
+            }));
+            appcan.openWinWithUrl("experience", "experience.html", 2, 0, 400)
+
+        })
+
+        appcan.xiaoxi({
+            nav_right: $(".nav-right")
+        })
+    })
+</script>

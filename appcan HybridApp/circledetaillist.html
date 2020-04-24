@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg headPlaceholder pageload">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center"></div>
+            <div class="nav-right nav-right-create">
+                <span class=" iconfont icon-fatie"></span>
+            </div>
+        </div>
+        <div class=" backgoundColor">
+            <div class="circleList li-no-border uhide" id="circleNow">
+            </div>
+        </div>
+        <div class="postList">
+            <div class="circleDetailTopList  uhide backgoundColor">
+                <ul></ul>
+            </div>
+
+            <div class="circleDetailList uhide">
+                <ul></ul>
+                <p class="pageIndexLoad"><img src="StyleSheet/load.gif" /></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/circlelist.js"></script>
+<script src="JavaScript/circledetailtoplist.js"></script>
+<script src="JavaScript/circledetaillist.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script>
+    appcan.ready(function () {
+        var request = localStorage.getItem("request");
+        if (request == "1") {
+            $(".nav-right").css("visibility", "hidden");
+
+        }
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+
+        $(".nav-right-create").on("tap", function () {
+            if (!islogin()) return;
+            if (localStorage.getItem("authentication_userLevel") == "0") {
+                appcan.window.openToast("只有1级以上才可以发帖，赶紧升级吧", 2500, 5, 0);
+                return;
+            }
+            if (localStorage.getItem("authentication_userBanned") == "1") {
+                appcan.window.openToast("不好意思，该账号被禁言中...", 2500, 5, 0);
+                return;
+            }
+            localStorage.setItem("request", request);
+
+            appcan.openWinWithUrl("circlecreatepost", "circlecreatepost.html", 2, 0, 400)
+        })
+
+        var circleNow = appcan.circleList({
+            selector: '#circleNow',
+            lievent: false,
+            removeHide: "#circleNow"
+
+        });
+
+        var circleDetailTopList = appcan.circleDetailTopList({
+            selector: '.circleDetailTopList'
+
+        });
+
+        var circleDetailList = appcan.circleDetailList({
+            selector: '.circleDetailList'
+
+        });
+        if (request != "1") {
+            appcan.request.ajax({
+                url: url + "/circle/get",
+                type: "Post",
+                dataType: "json",
+                data: $.extend({ id: request }, sendtoken()),
+                success: function (data) {
+                    circleNow.set(data);
+                    $("#header .nav-center").html(data[0].Title);
+                    $('#circleNow img').lazyload({
+                        effect: 'fadeIn',
+                        threshold: 200
+                    });
+                },
+
+                error: function () {
+                }
+            })
+        }
+        else {
+            $("#header .nav-center").html("活动");
+        }
+        window.pageIndex = {
+            index: 1,
+            end: false
+        }
+        appcan.request.ajax({
+            url: url + "/CirclePost/Gets",
+            dataType: "json",
+            data: $.extend({ id: request, index: window.pageIndex.index }, sendtoken()),
+            success: function (data) {
+                $(".page.pageload").removeClass("pageload");
+                circleDetailTopList.add(_.filter(data, function (e) { return (e.State & 4) > 0 }));
+                circleDetailList.add(_.filter(data, function (e) { return (e.State & 4) == 0 }), window.pageIndex.index);
+                scrollpage();
+                jQuery('.circleDetailList  li[data-pageindex=' + window.pageIndex.index + '] .imglist p').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+            },
+            error: function () {
+                $(".page.pageload").removeClass("pageload");
+            }
+        })
+
+        function scrollpage() {
+            var resizeTimer = null;
+            $(window).on('scroll', function () {
+
+                if (resizeTimer) {
+                    clearTimeout(resizeTimer)
+                }
+                resizeTimer = setTimeout(function () {
+
+                    if ($(window).scrollTop() + $(window).height() + 20 >= $(document).height() && $(window).scrollTop() > 20) {
+                        if (!window.pageIndex.end) {
+                            $(".pageIndexLoad").show();
+                        }
+                        window.pageIndex.index++;
+                        appcan.request.ajax({
+                            url: url + "/CirclePost/Gets",
+                            dataType: "json",
+                            data: $.extend({ id: request, index: window.pageIndex.index }, sendtoken()),
+                            success: function (data) {
+                                $(".pageIndexLoad").hide();
+                                if (data.length == 0) {
+                                    window.pageIndex.end = true;
+                                    return;
+                                }
+                              
+                                circleDetailList.add(_.filter(data, function (e) { return (e.State & 4) == 0 }), window.pageIndex.index);
+                                jQuery('.circleDetailList li[data-pageindex=' + window.pageIndex.index + '] .imglist p').lazyload({
+                                    effect: 'fadeIn',
+                                    threshold: 200
+                                });
+                            },
+                            error: function () {
+                                $(".pageIndexLoad").hide();
+                            }
+                        })
+
+                    }
+                }, 250);
+            }
+            );
+        }
+
+
+
+    })
+</script>

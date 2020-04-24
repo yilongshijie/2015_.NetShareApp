@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <style>
+        .listViewDiy b {
+            margin: 0 0.5em;
+            font-size: 1.2em;
+            color: #EB6996;
+        }
+
+        #userdiv {
+            padding: 0.5em;
+        }
+
+        #denglu {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            padding: 1.3em 0;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+            #denglu span {
+                width: 3em;
+                text-align: center;
+                padding: 0.3em .6em;
+                border-radius: 0.3em;
+            }
+
+                #denglu span:first-child {
+                    margin-right: 3em;
+                    border: 1px solid #ff9501;
+                    color: #ff9501;
+                }
+    </style>
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+    <div class="ub ub-ver headPlaceholder">
+        <div class="head   bc-head bc-text-head  ">
+            <div class="nav-left">
+            </div>
+            <div class="nav-center">我</div>
+            <div class="nav-right nav-active-home">
+            </div>
+        </div>
+        <div id="denglu" class="uhide">
+            <span id="login" class="backgoundColor button-active">登录</span>
+            <span id="regist" class="bc-head bc-text-head nav-active-home">注册</span>
+        </div>
+        <div id="userdiv" class="backgoundColor uhide">
+
+        </div>
+        <div id="listview2" class="backgoundColor" style="margin-top: 0.3em;">
+        </div>
+        <div id="listview3" class="backgoundColor" style="margin-top: 0.3em;">
+        </div>
+
+        <div class="buttonDiv uhide">
+
+            <span class="input" id="signout" >退出登录</span>
+        </div>
+    </div>
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="js/appcan.listview.js"></script>
+<script src="JavaScript/xiaoxi.js"></script>
+<script>
+
+    appcan.ready(function () {
+
+        var lv2 = appcan.listview({
+            selector: "#listview2",
+            type: "thinLine",
+            hasIcon: false,
+            hasAngle: true,
+            hasSubTitle: true,
+            multiLine: 1
+        });
+
+        var lv3 = appcan.listview({
+            selector: "#listview3",
+            type: "thinLine",
+            hasIcon: false,
+            hasAngle: true,
+            multiLine: 1
+        });
+        lv3.set([{
+            title: '<div class="listViewDiy"><b class="iconfont icon-zaixiankefu"></b>在线客服</div>',
+        },
+        {
+            title: '<div class="listViewDiy"><b class="iconfont icon-guanyuwomen"></b>关于分享</div>',
+        },
+        {
+            title: '<div class="listViewDiy"><b class="iconfont icon-bangzhu"></b>帮助</div>',
+        }]);
+
+        $("#login").on("tap", function () {
+            registlogin("login")
+
+        })
+        $("#regist").on("tap", function () {
+            registlogin("regist")
+
+        })
+        $("#listview3 ").on("tap", "li", function () {
+            switch ($(this).attr("data-index")) {
+                case "0":
+                    var keymeiqia = "";
+                    if (uexWidgetOne.platformName.toLowerCase() == "android") {
+                        keymeiqia = "563739f84eae35e12800000a";
+                    }
+                    else {
+                        keymeiqia = "563739ed4eae35e128000009";
+                    }
+                    uexMeChat.initMeChat(keymeiqia);
+                    uexMeChat.specifyAllocGroup(0);
+                    var userInfo = '{"appNickName":" ","realName":" "}';
+                    var otherInfo = '{"用户ID":"' + (localStorage.getItem("authentication_userID") || "未登录")+'",\
+                    "未登录用户订单":"' + (localStorage.getItem("cache_orderIDs") || " ") + '"}';
+                    uexMeChat.addUserInfo(userInfo, otherInfo);
+                    uexMeChat.show();
+                    break;
+                case "1": appcan.openWinWithUrl("about", "about.html", 2, 0, 400); break;
+                case "2": appcan.openWinWithUrl("help", "help.html", 2, 0, 400); break;
+
+            }
+
+        })
+        $("#listview2 ").on("tap", "li", function () {
+            switch ($(this).attr("data-index")) {
+                case "0": if (!islogin()) return; appcan.openWinWithUrl("mycirclelist", "mycirclelist.html", 2, 0, 400); break;
+                case "1": if (!islogin()) return; appcan.openWinWithUrl("mycirclelistreply", "mycirclelistreply.html", 2, 0, 400); break;
+                case "2": if (!islogin()) return; appcan.openWinWithUrl("myshoucang", "myshoucang.html", 2, 0, 400); break;
+                case "3":
+                    appcan.openWinWithUrl("shoporderlist", "shoporderlist.html", 2, 0, 400); break;
+                case "4": if (!islogin()) return; appcan.openWinWithUrl("mytiyan", "mytiyan.html", 2, 0, 400); break;
+            }
+
+        })
+
+        function registlogin(type) {
+            window.localStorage.setItem("registlogin", type)
+            appcan.window.open({
+                name: "registlogin",
+                data: "registlogin.html",
+                aniId: 0,
+                type: 0,
+                animDuration: 0
+            });
+        }
+        $("#signout").on("tap", function () {
+            logout();
+            reload();
+        })
+        appcan.xiaoxi({
+            nav_right: $(".nav-right")
+        })
+        $("#userdiv").on("tap", ".people", function () {
+            localStorage.setItem("requet", localStorage.getItem("authentication_userID"));
+            appcan.openWinWithUrl("setting", "setting.html", 2, 0, 400);
+        })
+        window.reload = function () {
+
+            if (localStorage.getItem("authentication_token") == null) {
+                $("#denglu").removeClass("uhide");
+                $(".buttonDiv").addClass("uhide");
+                $("#listview1").addClass("uhide");
+                $("#userdiv").addClass("uhide");
+            }
+            else {
+                $("#denglu").addClass("uhide");
+                $(".buttonDiv").removeClass("uhide");
+                $("#listview1").removeClass("uhide");
+                $("#userdiv").removeClass("uhide");
+                appcan.request.ajax({
+                    url: url + "/User/getUser",
+                    dataType: "json",
+                    type: "Post",
+                    data: $.extend({}, sendtoken()),
+                    success: function (data) {
+                        if (data != null) {
+                            $("#userdiv").html("");
+                            $("#userdiv").append('<div class="people" >' +
+                                '<div class="touxiang"><img src="' + data.HeadPortrait + '"> </div>' +
+                                '<div class="divright">  <p class="pleft">  <span class="name">' + data.NickName + '</span><br/> <span class="level"><var>' + data.UserExtend.ExperienceLevel + '</var>' + data.UserExtend.ExperienceName + '</span>        </p>                  ' +
+                                '</div></div>').removeClass("uhide");
+                        }
+                    },
+                    error: function () {
+
+                        appcan.window.openToast("请求失败", 2500, 5, 0)
+                    }
+                })
+            }
+
+            var listT = [
+{
+    title: '<div class="listViewDiy"><b class="iconfont icon-chuangjianquanzi"></b>我发的帖子</div>',
+    subTitle: ''
+}, {
+    title: '<div class="listViewDiy"><b class="iconfont  icon-luntan"></b>我回复的帖子</div>',
+    subTitle: ''
+}, {
+    title: '<div class="listViewDiy"><b class="iconfont icon-shoucang"></b>我的收藏</div>',
+    subTitle: ''
+}, {
+    title: '<div class="listViewDiy"><b class="iconfont icon-dingdan"></b>我的订单</div>',
+    subTitle: ''
+}
+//, {
+//    title: '<div class="listViewDiy"><b class="iconfont icon-youhuiquan"></b>我的券包</div>',
+//}
+
+            ];
+            if (localStorage.getItem("authentication_userType") & 2) {
+                listT.push({
+                    title: '<div class="listViewDiy"><b class="iconfont icon-nvren "></b>我的体验</div>',
+                    subTitle: ''
+                })
+            }
+            $("#listview2").html("");
+            lv2.set(listT);
+        }
+        window.reload();
+    })
+</script>

@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder pageload">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">图文详情</div>
+            <div class="nav-right nav-right-active">
+                <span class="iconfont icon-gouwuche"> </span>
+            </div>
+        </div>
+
+        <div id="iSlider-wrapper">
+        </div>
+        <div class="shopDetail uhide">
+        </div>
+        <div class="shoppingjia backgoundColor uhide">
+            <h2>用户评价</h2>
+            <ul></ul>
+            <p class="pingjiamore">查看更多评价</p>
+        </div>
+        <div class="goodtiyanshi backgoundColor uhide">
+            <h2>商品体验</h2>
+            <div></div>
+        </div>
+        <div class="shopNeirong backgoundColor uhide"></div>
+
+        <div class="productBottomOccupying"></div>
+        <div class="productBottom">
+            <div class="pbleft">
+
+                <span class="kefu"><b class="iconfont icon-zaixiankefu"></b>客服</span>
+                <span class="shoucang"><b class="iconfont icon-shoucang1"></b>收藏</span>
+            </div>
+            <p class="pbright">
+                <span class="shopcar" data-mark="shopcar">加入购物车</span>
+                <span class="buy" data-mark="buy">立即购买</span>
+            </p>
+        </div>
+
+        <div class="backgroundCover uhide">
+        </div>
+        <div class="shopDetailChildPage backgoundColor">
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScirptPlugIn/iSlider.js"></script>
+<script src="JavaScirptPlugIn/iSlider.plugin.dot.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script src="JavaScript/shopdetail.js"></script>
+<script src="JavaScript/experiencegoodlist.js"></script>
+<script src="JavaScript/shoppingjia.js"></script>
+<script>
+    appcan.ready(function () {
+
+        $("#iSlider-wrapper").height($("#iSlider-wrapper").width());
+        $("body").append("<style type=\"text/css\">#iSlider-wrapper img{ height:" + $("#iSlider-wrapper").height() + "px}</style>");
+        var request = localStorage.getItem("request");
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+
+        $(".nav-right").on("tap", function () {
+            appcan.openWinWithUrl("shopcar", "shopcar.html", 2, 0, 400)
+        })
+
+        function tiyanfunction() {
+            if (localStorage.getItem("authentication_userType") & 2) {
+                $(".shopDetail").find(".productTitle").append("<p class='tiyan'><span   class=\"  bc-head bc-text-head nav-active-home\">我要体验</span></p>");
+                $(".shopDetail .productTitle .tiyan").on("tap", function () {
+                    window.localStorage.setItem("request", request)
+                    appcan.openWinWithUrl("experiencecreate", "experiencecreate.html", 2, 0, 400);
+                })
+            }
+        }
+        appcan.request.ajax({
+            url: url + "/Good/Get",
+            type: "POST",
+            dataType: "json",
+            data: $.extend({ GoodID: request }, sendtoken()),
+            success: function (data) {
+                $(".page.pageload").removeClass("pageload");
+                var list = _.map(data.ImageList.split(","), function (item) {
+                    return { content: "<img src=\"" + item + "\" data-original=\"" + item + "\"    />  " }
+                });
+                var S = new iSlider({
+                    dom: document.getElementById('iSlider-wrapper'),
+                    data: list,
+                    isLooping: 1,
+                    isOverspread: 1,
+                    animateTime: 800, // ms
+                    plugins: ['dot']
+                });
+
+                $(".islider-dot-wrap").css("top", $("#iSlider-wrapper").width() * 0.96);
+
+                data.baoyou = false;
+                data.promise = ["七天无理由", "隐私包装", "正品保证", "按时发货"];
+                $(".shopDetail,.shopNeirong").removeClass("uhide");
+                appcan.shopDetail(
+                  {
+                      selector: '.shopDetail',
+                      selectorNeirong: ".shopNeirong",
+                      selectorChildPage: '.shopDetailChildPage',
+                      data: data
+                  });
+                if (data.GoodCollection && data.GoodCollection.length > 0) {
+                    if (data.GoodCollection[0].State == 1) {
+                        $(".shoucang").find("b").removeClass("icon-shoucang1").addClass("icon-shoucang");
+                    }
+                }
+                window.shopData = { Title: data.Title, SubTitle: data.SubTitle }
+                tiyanfunction();
+                baoyoufunction();
+
+            },
+            error: function () {
+                $(".page.pageload").removeClass("pageload");
+            }
+        })
+
+        $(".shoucang").on("tap", function () {
+            if (!islogin()) return;
+            appcan.request.ajax({
+                url: url + "/Good/SetGoodCollection",
+                type: "POST",
+                dataType: "json",
+                data: $.extend({ GoodID: request, State: ($(".shoucang").find("b").hasClass("icon-shoucang") ? 2 : 1) }, sendtoken()),
+                success: function (data) {
+                    if (data == 1) {
+                        $(".shoucang").find("b").removeClass("icon-shoucang1").addClass("icon-shoucang");
+                    }
+                    else if (data == 2) {
+                        $(".shoucang").find("b").removeClass("icon-shoucang").addClass("icon-shoucang1");
+                    }
+
+                    appcan.window.evaluateScript("myshoucang", 'reload();');
+                },
+                error: function () {
+
+                }
+            })
+        })
+
+        appcan.request.ajax({
+            url: url + "/Experience/GetByGoodID",
+            type: "GET",
+            dataType: "json",
+            data: { GoodID: request },
+            success: function (data) {
+
+                if (data == null) return;
+                var goodtiyanshi = appcan.experiencegoodlist({
+                    selector: '.goodtiyanshi',
+
+                });
+                goodtiyanshi.add(data);
+                $('.goodtiyanshi img').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+
+            },
+            error: function () {
+
+            }
+        })
+        appcan.request.ajax({
+            url: url + "/Good/getGoodEvaluate",
+            type: "GET",
+            dataType: "json",
+            data: { goodID: request, num: 5 },
+            success: function (data) {
+
+                var shoppingjia = appcan.shoppingjia({
+                    selector: '.shoppingjia',
+
+                });
+                shoppingjia.set(data);
+
+            },
+            error: function () {
+
+            }
+        })
+        function baoyoufunction() {
+            appcan.request.ajax({
+                url: url + "/Welfare/GetWholeField",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var v = '<b class="iconfont icon-you"></b>' + data;
+                    $(".baoyou").append(v);
+
+                },
+                error: function () {
+
+                }
+            })
+        }
+   
+        $(".goodtiyanshi").on("tap", " img", function () {
+            window.localStorage.setItem("request", JSON.stringify({
+                ExperienceID: $(this).attr("data-GoodExperienceID"),
+                GoodID: $(this).attr("data-GoodID")
+            }));
+
+            appcan.openWinWithUrl("experience", "experience.html", 2, 0, 400)
+
+        })
+
+        $(".shoppingjia .pingjiamore").on("tap", function () {
+            window.localStorage.setItem("request", request);
+            appcan.openWinWithUrl("shopdetailpingjia", "shopdetailpingjia.html", 2, 0, 400)
+        })
+
+        $(".kefu").on("tap", function () {
+            var keymeiqia = "";
+            if (uexWidgetOne.platformName.toLowerCase() == "android") {
+                keymeiqia = "563739f84eae35e12800000a";
+            }
+            else {
+                keymeiqia = "563739ed4eae35e128000009";
+            }
+            uexMeChat.initMeChat(keymeiqia);
+            uexMeChat.specifyAllocGroup(0);
+            var userInfo = '{"appNickName":" ","realName":" "}';
+            var otherInfo = '{"用户ID":"' + (localStorage.getItem("authentication_userID") || " ") + '",\
+            "离线用户订单":"' + (localStorage.getItem("cache_orderIDs") || " ") + '",\
+            "商品ID":"' + request + '","商品标题":"' + window.shopData.Title + '",\
+             "子标题":"' + window.shopData.SubTitle + '"}';
+            uexMeChat.addUserInfo(userInfo, otherInfo);
+            uexMeChat.show();
+        })
+    })
+</script>

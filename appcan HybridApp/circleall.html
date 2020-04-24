@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+    
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">所有圈子</div>
+            <div class="nav-right">
+            </div>
+        </div>
+
+        <div class="circledetailall">
+            <ul class="circleType"></ul>
+            <div class="circleList  backgoundColor" id="circleDetailAll">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/circletype.js"></script>
+<script src="JavaScript/circlelist.js"></script>
+
+<script>
+    appcan.ready(function () {
+        appcan.button(".nav-left", "ani-act", function () {
+            appcan.window.close(-1);
+
+        })
+        var data = [
+            {
+                title: "情感",
+                list: [{
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "吐槽竞技场",
+                    title: "心中右槽，不吐不快",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "姐有大长腿",
+                    title: "纤纤玉足九头身，黑丝美腿缠人魂",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "泡学宝典",
+                    title: "泡妞追男秘籍，教你推女神，追男神",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "装甲美少女",
+                    title: "爱美装美甲的时尚美少女",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "拉拉后花园",
+                    title: "唯有女人更懂女人，LES天堂女女聚集",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "趣聊星座",
+                    title: "星座速配，和ta一起做美妙的事情",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "家有仙妻",
+                    title: "晒老婆，晒女友。必须正派，盗图封号",
+                    id: "SDFSDFgsd"
+                }]
+            },
+            {
+                title: "健康",
+                list: [{
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "拉拉后花园",
+                    title: "唯有女人更懂女人，LES天堂女女聚集",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "趣聊星座",
+                    title: "星座速配，和ta一起做美妙的事情",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "家有仙妻",
+                    title: "晒老婆，晒女友。必须正派，盗图封号",
+                    id: "SDFSDFgsd"
+                }]
+            },
+            {
+                title: "兴趣",
+                list: [{
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "姐有大长腿",
+                    title: "纤纤玉足九头身，黑丝美腿缠人魂",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "泡学宝典",
+                    title: "泡妞追男秘籍，教你推女神，追男神",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "装甲美少女",
+                    title: "爱美装美甲的时尚美少女",
+                    id: "SDFSDFgsd"
+                }]
+            },
+            {
+                title: "生活",
+                list: [{
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "泡学宝典",
+                    title: "泡妞追男秘籍，教你推女神，追男神",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "装甲美少女",
+                    title: "爱美装美甲的时尚美少女",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "拉拉后花园",
+                    title: "唯有女人更懂女人，LES天堂女女聚集",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "趣聊星座",
+                    title: "星座速配，和ta一起做美妙的事情",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "家有仙妻",
+                    title: "晒老婆，晒女友。必须正派，盗图封号",
+                    id: "SDFSDFgsd"
+                }]
+            },
+            {
+                title: "兴致",
+                list: [{
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "装甲美少女",
+                    title: "爱美装美甲的时尚美少女",
+                    id: "SDFSDFgsd"
+                }]
+
+            },
+            {
+                title: "自拍",
+                list: [{
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "姐有大长腿",
+                    title: "纤纤玉足九头身，黑丝美腿缠人魂",
+                    id: "SDFSDFgsd"
+                }, {
+                    img: "images/2eaa4c8337a093135973f23db994caa791022ad26afb8-QxUoXk_fw320.jpeg",
+                    label: "泡学宝典",
+                    title: "泡妞追男秘籍，教你推女神，追男神",
+                    id: "SDFSDFgsd"
+                }]
+            }
+        ]
+
+
+        var circleDetailAll = appcan.circleList({
+            selector: '#circleDetailAll',
+            lievent: true
+
+        });
+        var circleType = appcan.circleType({
+            selector: '.circleType',
+            childCircleList: circleDetailAll,
+            data: data
+
+        });
+    })
+
+</script>

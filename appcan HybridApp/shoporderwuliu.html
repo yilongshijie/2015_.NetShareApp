@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <style>
+        .resultwuliu {
+        }
+
+            .resultwuliu li {
+                padding: 0.6em 0.3em;
+            }
+
+                .resultwuliu li:nth-child(odd) {
+                    background: #f6f6f6;
+                }
+
+                .resultwuliu li:nth-child(even) {
+                    background: #eeeeee;
+                }
+
+                .resultwuliu li span {
+                    display: block;
+                    padding-bottom: 0.2em;
+                    color: #EB6996;
+                }
+
+                .resultwuliu li var {
+                    display: block;
+                    padding-left: 2em;
+                }
+    </style>
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg headPlaceholder">
+
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">订单物流</div>
+            <div class="nav-right  ">
+            </div>
+        </div>
+        <ul class="resultwuliu"></ul>
+
+    </div>
+
+
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/shoporderwuliu.js"></script>
+
+<script>
+
+    appcan.ready(function () {
+        appcan.button(".nav-left", "ani-act", function () {
+            appcan.window.close(-1);
+
+        })
+        window.request = localStorage.getItem("request");
+        window.request = JSON.parse(request);
+
+        var shoporderwuliu = appcan.shoporderwuliu({
+            selector: '.resultwuliu',
+            empty: ".empty"
+
+        });
+
+
+        appcan.request.ajax({
+            url: url + "/Order/GetWuLiu",
+            type: "post",
+            data: { wuliugongsi: request.wuliugongsi, wuliuhao: request.wuliuhao },
+            dataType: "json",
+            success: function (data) {
+                data = eval("(" + data + ")")
+                if(data.data)
+                    shoporderwuliu.set(data.data);
+                 
+            },
+            error: function () {
+
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        })
+
+
+    })
+
+
+</script>

@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <style>
+        .mui-table-view {
+            margin-top: 0px;
+        }
+
+        .mui-content-padded button {
+            margin-left: .8em;
+        }
+
+        .mui-content-padded {
+            margin: .8em;
+        }
+
+        .mui-btn, button, input[type=button], input[type=reset], input[type=submit] {
+            font-size: .9em;
+            font-weight: 400;
+            line-height: 1.42;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0;
+            padding: .3em .75em;
+            cursor: pointer;
+            -webkit-transition: all;
+            transition: all;
+            -webkit-transition-timing-function: linear;
+            transition-timing-function: linear;
+            -webkit-transition-duration: .2s;
+            transition-duration: .2s;
+            text-align: center;
+            vertical-align: top;
+            white-space: nowrap;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            background-color: #fff;
+            background-clip: padding-box;
+        }
+
+        .mui-btn-danger, .mui-btn-negative, .mui-btn-red {
+            color: #fff;
+            border: 1px solid #dd524d;
+            background-color: #dd524d;
+        }
+
+        .mui-card {
+            overflow: hidden;
+            margin: 0 1em;
+            border: 1px solid #ddd;
+            border-radius: .3em;
+            background-color: #fff;
+            background-clip: padding-box;
+        }
+
+            .mui-card .mui-table-view {
+                margin-bottom: 0;
+                border-top: 0;
+                border-bottom: 0;
+                border-radius: .3em;
+            }
+
+        .mui-table-view {
+            margin-top: 0px;
+        }
+
+        .mui-table-view {
+            position: relative;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+            background-color: #fff;
+        }
+
+        .mui-card .mui-table-view .mui-table-view-cell:first-child, .mui-card .mui-table-view .mui-table-view-divider:first-child {
+            top: 0;
+            border-top-left-radius: .3em;
+            border-top-right-radius: .3em;
+        }
+
+        .mui-ios .mui-table-view-cell {
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .mui-table-view-cell {
+            position: relative;
+            overflow: hidden;
+            padding: .8em 1em;
+            -webkit-touch-callout: none;
+        }
+
+            .mui-table-view-cell:after {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 1em;
+                height: 1px;
+                content: '';
+                -webkit-transform: scaleY(.5);
+                transform: scaleY(.5);
+                background-color: #c8c7cc;
+            }
+
+            .mui-table-view-cell.mui-collapse > .mui-navigate-right:after, .mui-table-view-cell.mui-collapse > .mui-push-right:after {
+                content: '\e581';
+            }
+
+        .mui-navigate-right:after, .mui-push-right:after {
+            right: 1em;
+            content: '\e583';
+        }
+
+        .mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after {
+            font-family: Muiicons;
+            font-size: inherit;
+            line-height: 1;
+            position: absolute;
+            top: 50%;
+            display: inline-block;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            text-decoration: none;
+            color: #bbb;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mui-table-view-cell.mui-collapse .mui-table-view.mui-table-view-chevron {
+            margin-right: -2em;
+        }
+
+        .mui-table-view-cell.mui-collapse .mui-table-view {
+            display: none;
+            margin-top: .8em;
+            margin-bottom: -.8em;
+            margin-left: -1em;
+            border: 0;
+        }
+
+        .mui-table-view-cell.mui-collapse.mui-active .mui-table-view {
+            display: block;
+        }
+
+        a:active, a:hover {
+            outline: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .mui-table-view-chevron .mui-table-view-cell > a:not(.mui-btn) {
+            margin-right: -2em;
+        }
+
+        .mui-table-view-cell > a:not(.mui-btn) {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            margin: -0.8em -1em;
+            padding: inherit;
+            color: inherit;
+        }
+
+
+        .mui-table-view-cell:after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 1em;
+            height: 1px;
+            content: '';
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+            background-color: #c8c7cc;
+        }
+
+        .mui-table-view-cell.mui-active {
+            background-color: #eee;
+        }
+
+        .mui-table-view-chevron .mui-table-view-cell {
+            padding-right: 2em;
+        }
+
+        .mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell {
+            padding-left: 2em;
+            background-position: 2em 100%;
+        }
+    </style>
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">帮助</div>
+            <div class="nav-right">
+
+            </div>
+        </div>
+
+        <div class="uhide  helpdiv" >
+            <div style="margin: 1em;border-bottom:0.1em solid #000000">问题分类</div>
+            <div id="categorys">
+            </div>
+            <div style="margin: 1em;border-bottom:.1em solid #000000" id="wtms"></div>
+            <div class="mui-card" id="questions">
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+
+<script>
+    appcan.ready(function () {
+        var request = localStorage.getItem("request");
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+        //请求
+        var buttonCount = 3
+        appcan.request.ajax({
+            url: url + "/Json/help",
+            type: "Get",
+            dataType: "json",
+            data: $.extend({}, sendtoken()),
+            success: function (data) {
+                $(".helpdiv").removeClass("uhide");
+                data = $.parseJSON(data);
+                var categorys = data.categorys;
+                var paddeds = Math.ceil(categorys.length / buttonCount);
+                var divPaddeds = new Array();
+                for (var i = 0; i < paddeds; i++) {
+                    var buttons = $('<div class="mui-content-padded"></div>');
+                    divPaddeds.push(buttons);
+                    $("#categorys").append(buttons);
+                }
+                for (var i = 0; i < categorys.length; i++) {
+                    var padded = divPaddeds[Math.floor(i / buttonCount)];
+                    var category = categorys[i];
+                    var id = category['id'];
+                    var title = category['title'];
+                    if (i == 0) {
+                        $("#wtms").html(title);
+                    }
+                    var button = $('<button type="button" class="mui-btn mui-btn-danger" id="' + id + '">' + title + '</button>');
+                    padded.append(button);
+                    var ulTitle;
+                    if (i == 0) {
+                        var ulTitle = $('<ul class="mui-table-view mui-table-view-chevron" name=' + id + '></ul>');
+                    } else {
+                        ulTitle = $('<ul class="mui-table-view mui-table-view-chevron" name=' + id + ' style="display:none;"></ul>');
+                    }
+                    var questions = category['questions'];
+                    for (var j = 0; j < questions.length; j++) {
+                        var question = questions[j];
+                        var li = $('<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" >' + question['question'] + '</a></li>')
+                        var ul = $('<ul class="mui-table-view mui-table-view-chevron"></ul>');
+                        var answer = $('<li class="mui-table-view-cell"><span >' + question['answer'] + '</span></li>');
+                        ul.append(answer);
+                        li.append(ul);
+                        ulTitle.append(li);
+                    }
+                    $("#questions").append(ulTitle);
+                }
+
+                $("#categorys").find("button").on("tap", function () {
+                    var obj = $(this);
+                    var name = obj.attr("id");
+                    var text = obj.text();
+                    $("#wtms").html(text);
+                    $("#questions").find("ul").each(function () {
+                        if (name == $(this).attr("name")) {
+                            $(this).show();
+                        } else if ($(this).attr("name")) {
+                            $(this).hide();
+                        }
+                    })
+                })
+
+                $(".mui-navigate-right").on("tap", function () {
+                    var isHas = false;
+                    if ($(this).parent().hasClass("mui-active")) {
+                        isHas = true;
+                    }
+                    $(this).parent().siblings().removeClass("mui-active");
+                    if (isHas) {
+                        $(this).parent().removeClass("mui-active");
+                    } else {
+                        $(this).parent().addClass("mui-active");
+                    }
+                })
+            },
+            error: function () {
+
+            }
+        })
+    })
+</script>

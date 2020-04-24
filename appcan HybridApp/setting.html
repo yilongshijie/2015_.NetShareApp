@@ -1,0 +1,1093 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <meta charset="utf-8">
+    <title>个人资料</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/feedback-page.css" />
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+    <style>
+        html,body{background-color:#efeff4;font-size: 16px;line-height:1.2em;font-family: "Helvetica Neue", Helvetica;;color:black;}.mui-views,.mui-view,.mui-pages,.mui-page,.mui-page-content{position:absolute;left:0;right:0;top:0;bottom:0;width:100%;height:100%;background-color:#efeff4}.mui-pages{top:46px;height:auto}.mui-scroll-wrapper,.mui-scroll{background-color:#efeff4}.mui-page.mui-transitioning{-webkit-transition:-webkit-transform 300ms ease;transition:transform 300ms ease}.mui-page-left{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.mui-ios .mui-page-left{-webkit-transform:translate3d(-20%,0,0);transform:translate3d(-20%,0,0)}.mui-navbar{position:fixed;right:0;left:0;z-index:10;height:44px;background-color:#eb6996}.mui-navbar .mui-bar{position:absolute;background:transparent;text-align:center}.mui-android .mui-navbar-inner.mui-navbar-left{opacity:0}.mui-ios .mui-navbar-left .mui-left,.mui-ios .mui-navbar-left .mui-center,.mui-ios .mui-navbar-left .mui-right{opacity:0}.mui-navbar .mui-btn-nav{-webkit-transition:none;transition:none;-webkit-transition-duration:.0s;transition-duration:.0s}.mui-navbar .mui-bar .mui-title{display:inline-block;width:auto;color:white;-webkit-box-flex:1;-webkit-flex:1;flex:1;font-size:1.2em}.mui-page-shadow{position:absolute;right:100%;top:0;width:16px;height:100%;z-index:-1;content:''}.mui-page-shadow{background:-webkit-linear-gradient(left,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%);background:linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%)}.mui-navbar-inner.mui-transitioning,.mui-navbar-inner .mui-transitioning{-webkit-transition:opacity 300ms ease,-webkit-transform 300ms ease;transition:opacity 300ms ease,transform 300ms ease}.mui-page{display:none}.mui-pages .mui-page{display:block}.mui-page .mui-table-view:first-child{margin-top:15px}.mui-page .mui-table-view:last-child{margin-bottom:30px}.mui-table-view{margin-top:20px}.mui-table-view span.mui-pull-right{color:balck;}.mui-table-view-divider{background-color:#efeff4;font-size:14px}.mui-table-view-divider:before,.mui-table-view-divider:after{height:0}.head{height:40px}#head{line-height:40px}.head-img{width:40px;height:40px}#head-img1{position:absolute;bottom:10px;right:40px;width:40px;height:40px}.update{font-style:normal;color:#999;margin-right:-25px;font-size:15px}.mui-fullscreen{position:fixed;z-index:20;background-color:#000}.mui-ios .mui-navbar .mui-bar .mui-title{position:static;color:white;-webkit-box-flex:1;-webkit-flex:1;flex:1;font-size:1.2em}
+        .table-c table{border-right:1px solid #B0B0B5;border-bottom:1px solid #B0B0B5;}
+        .table-c table td{border-left:1px solid #B0B0B5;border-top:1px solid #B0B0B5;}
+        .mui-page-content a span{color: black;}
+
+    </style>
+</head>
+<body>
+    <!--页面主结构开始-->
+    <div id="app" class="mui-views">
+        <div class="mui-view">
+            <div class="mui-navbar">
+            </div>
+            <div class="mui-pages">
+            </div>
+        </div>
+    </div>
+    <div id="setting1" class="mui-page" id="goBack">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav" id="goBack"></span>
+            </button>
+            <h1 class="mui-center mui-title" >设置</h1>
+        </div>
+        <!--页面标题栏结束-->
+        <!--页面主内容区开始-->
+        <div class="mui-page-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell touxiangshangchuan">
+                            <a id="head" class="mui-navigate-right" style="color: #777;">
+                                头像
+                                <span class="mui-pull-right head">
+                                    <img name="HeadPortrait" class="head-img mui-action-preview" id="head-img1" src="">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#lc" class="mui-navigate-right" style="color: #777;">
+                                昵称
+                                <span class="mui-pull-right" name="NickName"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#xb" class="mui-navigate-right" style="color: #777;">
+                                性别
+                                <span class="mui-pull-right" name="Gender"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#nl" class="mui-navigate-right" style="color: #777;">
+                                年龄
+                                <span class="mui-pull-right" name="Age"></span>(岁)
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#hl" class="mui-navigate-right" style="color: #777;">
+                                婚恋
+                                <span class="mui-pull-right" name="Married"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#szd" class="mui-navigate-right" style="color: #777;">
+                                所在地
+                                <span class="mui-pull-right" name="Location"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#dj" class="mui-navigate-right" style="color: #777;">
+                                等级
+                                <span class="mui-pull-right" name="ExperienceName"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#hmd" class="mui-navigate-right" style="color: #777;">
+                                我的黑名单
+                                <span class="mui-pull-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="setting2" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav" id="goBack"></span>
+            </button>
+            <h1 class="mui-center mui-title">设置</h1>
+        </div>
+        <!--页面标题栏结束-->
+        <!--页面主内容区开始-->
+        <div class="mui-page-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell touxiangshangchuan">
+                            <a id="head" class="mui-navigate-right" style="color: #777;">
+                                头像
+                                <span class="mui-pull-right head">
+                                    <img name="HeadPortrait" class="head-img mui-action-preview" id="head-img1" src="">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#lc" class="mui-navigate-right" style="color: #777;">
+                                昵称
+                                <span class="mui-pull-right" name="NickName"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#xb" class="mui-navigate-right" style="color: #777;">
+                                性别
+                                <span class="mui-pull-right" name="Gender"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#nl" class="mui-navigate-right" style="color: #777;">
+                                年龄
+                                <span class="mui-pull-right" name="Age"></span>(岁)
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#hl" class="mui-navigate-right" style="color: #777;">
+                                婚恋
+                                <span class="mui-pull-right" name="Married"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#szd" class="mui-navigate-right" style="color: #777;">
+                                所在地
+                                <span class="mui-pull-right" name="Location"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#dj" class="mui-navigate-right" style="color: #777;">
+                                等级
+                                <span class="mui-pull-right" name="ExperienceName"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#sg" class="mui-navigate-right" style="color: #777;">
+                                身高
+                                <span class="mui-pull-right" name="Stature"></span>(cm)
+                            </a>
+
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#tz" class="mui-navigate-right" style="color: #777;">
+                                体重
+                                <span class="mui-pull-right" name="Weight"></span>(kg)
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#sw" class="mui-navigate-right" style="color: #777;">
+                                三围
+                                <span class="mui-pull-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#hmd" class="mui-navigate-right" style="color: #777;">
+                                我的黑名单
+                                <span class="mui-pull-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="setting4" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav" id="goBack"></span>
+            </button>
+            <h1 class="mui-center mui-title">设置</h1>
+        </div>
+        <!--页面标题栏结束-->
+        <!--页面主内容区开始-->
+        <div class="mui-page-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell touxiangshangchuan">
+                            <a id="head" class="mui-navigate-right" style="color: #777;">
+                                头像
+                                <span class="mui-pull-right head">
+                                    <img name="HeadPortrait" class="head-img mui-action-preview" id="head-img1" src="">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#lc" class="mui-navigate-right" style="color: #777;">
+                                昵称
+                                <span class="mui-pull-right" name="NickName"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#xb" class="mui-navigate-right" style="color: #777;">
+                                性别
+                                <span class="mui-pull-right" name="Gender"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#nl" class="mui-navigate-right" style="color: #777;">
+                                年龄
+                                <span class="mui-pull-right" name="Age"></span>(岁)
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#hl" class="mui-navigate-right" style="color: #777;">
+                                婚恋
+                                <span class="mui-pull-right" name="Married"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#szd" class="mui-navigate-right" style="color: #777;">
+                                所在地
+                                <span class="mui-pull-right" name="Location"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#dj" class="mui-navigate-right" style="color: #777;">
+                                等级
+                                <span class="mui-pull-right" name="ExperienceName"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#zc" class="mui-navigate-right" style="color: #777;">
+                                职称
+                                <span class="mui-pull-right" name="ProfessionalTitle"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#hmd" class="mui-navigate-right" style="color: #777;">
+                                我的黑名单
+                                <span class="mui-pull-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="setting7" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav" id="goBack"></span>
+            </button>
+            <h1 class="mui-center mui-title">设置</h1>
+        </div>
+        <!--页面标题栏结束-->
+        <!--页面主内容区开始-->
+        <div class="mui-page-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell touxiangshangchuan">
+                            <a id="head" class="mui-navigate-right" style="color: #777;">
+                                头像
+                                <span class="mui-pull-right head">
+                                    <img name="HeadPortrait" class="head-img mui-action-preview" id="head-img1" src="">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#lc" class="mui-navigate-right" style="color: #777;">
+                                昵称
+                                <span class="mui-pull-right" name="NickName"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#xb" class="mui-navigate-right" style="color: #777;">
+                                性别
+                                <span class="mui-pull-right" name="Gender"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#nl" class="mui-navigate-right" style="color: #777;">
+                                年龄
+                                <span class="mui-pull-right" name="Age"></span>(岁)
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#hl" class="mui-navigate-right" style="color: #777;">
+                                婚恋
+                                <span class="mui-pull-right" name="Married"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#szd" class="mui-navigate-right" style="color: #777;">
+                                所在地
+                                <span class="mui-pull-right" name="Location"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#dj" class="mui-navigate-right" style="color: #777;">
+                                等级
+                                <span class="mui-pull-right" name="ExperienceName"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#sg" class="mui-navigate-right" style="color: #777;">
+                                身高
+                                <span class="mui-pull-right" name="Stature"></span>(cm)
+                            </a>
+
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#tz" class="mui-navigate-right" style="color: #777;">
+                                体重
+                                <span class="mui-pull-right" name="Weight"></span>(kg)
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a href="#sw" class="mui-navigate-right" style="color: #777;">
+                                三围
+                                <span class="mui-pull-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#zc" class="mui-navigate-right" style="color: #777;">
+                                职称
+                                <span class="mui-pull-right" name="ProfessionalTitle"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li class="mui-table-view-cell">
+                            <a href="#hmd" class="mui-navigate-right" style="color: #777;">
+                                我的黑名单
+                                <span class="mui-pull-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="zc" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">职称设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>职称</label>
+                        <input name="ProfessionalTitle" type="text" placeholder="请输入职称..">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>职称描述</label>
+                        <input name="ProfessionalDescription" type="text" placeholder="请输入职称描述..">
+                    </div>
+                    <div class="mui-button-row">
+                        <button type="button" name="zc" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="dj" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">等级说明</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper ">
+                <div class="mui-scroll">
+                    <div style="margin-left: 5px;font-weight :bold;padding 0.3em;">什么是等级和头衔?</div>
+                    <div id="djtx" style="margin-left: 5px;margin-left: 5px;padding 0.3em;"> </div>
+                    <div style="margin-top:15px;margin-left: 5px;font-weight :bold;padding 0.3em;">如何获取经验值?</div>
+                    <div style="margin-top:5px;margin-left: 5px;padding 0.3em;">获取经验值的途径：</div>
+                    <div id="hqjy" style="margin-top:5px;margin-left: 5px;padding 0.3em;" class="table-c">
+
+                    </div>
+                    <div style="margin-top:5px;margin-left: 5px;padding 0.3em;">除了获取经验外,避免被小编扣除经验也很重要哦!</div>
+                    <div id="kcjy" style="margin-top:5px;margin-left: 5px;padding 0.3em;" class="table-c">
+
+                    </div>
+
+                    <div style="margin-top:15px;margin-left: 5px;font-weight :bold;padding 0.3em;">各等级详解</div>
+                    <div id="djxj" style="margin-top:5px;margin-left: 5px;padding 0.3em;"> </div>
+                    <div style="margin-top:15px;margin-left: 5px;font-weight :bold;padding 0.3em;">各等级对应的头衔</div>
+                    <div id="dytx" style="margin-top:5px;margin-left: 5px;padding 0.3em;" class="table-c"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="xb" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">性别设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group">
+                    <div class="mui-input-row mui-radio">
+                        <label>男</label>
+                        <input name="Gender" type="radio" value="男">
+                    </div>
+                    <div class="mui-input-row mui-radio">
+                        <label>女</label>
+                        <input name="Gender" type="radio" value="女">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="nl" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">年龄设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>年龄</label>
+                        <input name="Age" type="text" placeholder="请输入年龄(岁).." readOnly="true">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>星座</label>
+                        <input name="Constellation" type="text" value="" readOnly="true">
+                    </div>
+
+                    <div class="mui-button-row">
+                        <button type="button" name="nl" class="mui-btn mui-btn-primary">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="sg" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">身高设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>身高</label>
+                        <input name="Stature" type="text" placeholder="请输入身高(cm).." rgexp="([0-9]{3})">
+                    </div>
+                    <div class="mui-button-row">
+                        <button type="button" name="sg" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tz" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">体重设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>体重</label>
+                        <input name="Weight" type="text" placeholder="请输入体重(kg).." rgexp="([0-9]{2,3})">
+                    </div>
+                    <div class="mui-button-row">
+                        <button type="button" name="tz" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="lc" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">昵称设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>昵称</label>
+                        <input name="NickName" type="text" placeholder="请输入昵称..">
+                    </div>
+                    <div class="mui-button-row">
+                        <button type="button" name="lc" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="sw" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">三围设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>胸围</label>
+                        <input name="Bust" type="text" placeholder="请输入胸围.." rgexp="([0-9]{2,3})">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>腰围</label>
+                        <input name="Waist" type="text" placeholder="请输入腰围.." rgexp="([0-9]{2,3})">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>臀围</label>
+                        <input name="Hips" type="text" placeholder="请输入臀围.." rgexp="([0-9]{2,3})">
+                    </div>
+                    <div class="mui-button-row">
+                        <button type="button" name="sw" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dh" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">电话设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <label>电话</label>
+                        <input name="Tel" type="text" placeholder="请输入电话.." rgexp="^[1][358][0-9]{9}$">
+                    </div>
+                    <div class="mui-button-row">
+                        <button type="button" name="dh" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="hl" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">婚恋设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group">
+                    <div class="mui-input-row mui-radio">
+                        <label>单身</label>
+                        <input name="Married" type="radio" value="单身">
+                    </div>
+                    <div class="mui-input-row mui-radio">
+                        <label>热恋中</label>
+                        <input name="Married" type="radio" value="热恋中">
+                    </div>
+                    <div class="mui-input-row mui-radio">
+                        <label>已婚</label>
+                        <input name="Married" type="radio" value="已婚">
+                    </div>
+                    <div class="mui-input-row mui-radio">
+                        <label>离异/丧偶</label>
+                        <input name="Married" type="radio" value="离异/丧偶">
+                    </div>
+                    <div class="mui-input-row mui-radio">
+                        <label>保密</label>
+                        <input name="Married" type="radio" value="保密">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="szd" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">所在地设置</h1>
+        </div>
+        <div class="mui-content ">
+            <div class="mui-scroll-wrapper mui-table-view">
+                <form class="mui-input-group ">
+                    <div class="mui-input-row">
+                        <input id="Location" name="Location" type="text" placeholder="请输入所在城市.." readOnly="true">
+                    </div>
+
+                    <div class="mui-button-row">
+                        <button type="button" name="szd" class="mui-btn mui-btn-primary" ">确认</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="hmd" class="mui-page">
+        <div class="mui-navbar-inner mui-bar mui-bar-nav">
+            <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+                <span class="mui-icon mui-icon-left-nav"></span>设置
+            </button>
+            <h1 class="mui-center mui-title">黑名单</h1>
+        </div>
+        <div class="mui-content ">
+            <ul id="hmdList" class="mui-table-view"></ul>
+        </div>
+    </div>
+
+</body>
+<script src="JavaScirptPlugIn/mui.min.js"></script>
+<script src="JavaScirptPlugIn/mui.view.js"></script>
+<script src="JavaScirptPlugIn/mui.poppicker.js"></script>
+<script src="JavaScirptPlugIn/mui.picker.min.js"></script>
+<script src='JavaScirptPlugIn/jquery.js'></script>
+<script src="JavaScirptPlugIn/city.data.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/upload.js"></script>
+<script>
+
+    var UserID = localStorage.getItem("authentication_userID");
+    var userType = 7;
+    var viewApi;
+    var view;
+    appcan.ready(function () {
+        $("#goBack").on("tap", function () {
+            appcan.window.close(-1);
+        })
+        appcan.request.ajax({
+            url: window.url + "/User/GetUsersBlack",
+            dataType: "json",
+            type: "Post",
+            data: $.extend({}, sendtoken()),
+            success: function (data) {
+
+                if (data != null && data.length > 0) {
+                    $("#hmdList").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        var li = $('<li class="mui-table-view-cell"></li>');
+                        var div = $('<div class="mui-slider-right mui-disabled"></div>');
+                        var a = $('<a class="mui-btn mui-btn-red" id="' + data[i]["UserID"] + '">移除删除</a>');
+                        div.append(a);
+                        li.append(div);
+                        var hand = $('<div class="mui-slider-handle">' + data[i]["NickName"] + '</div>')
+                        li.append(hand);
+                        $("#hmdList").append(li);
+                    }
+                    var btnArray = ['确认', '取消'];
+                    $('#hmdList').on('tap', '.mui-btn', function (event) {
+                        var elem = this;
+                        var li = elem.parentNode.parentNode;
+                        var UserID = $(this).attr('id');
+                        mui.confirm('确认删除该条黑名单?', '设置', btnArray, function (e) {
+                            if (e.index == 0) {
+                                appcan.request.ajax({
+                                    url: window.url + "/User/DeleteUsersBlack",
+                                    dataType: "json",
+                                    type: "Post",
+                                    data: $.extend({ PassivityUserID: UserID }, sendtoken()),
+                                    success: function (data) {
+
+                                        if (data == 1) {
+                                            li.parentNode.removeChild(li);
+                                        }
+                                    }, error: function () {
+                                        
+                                        appcan.window.openToast("请求失败", 2500, 5, 0)
+                                    }
+                                });
+                            } else {
+                                setTimeout(function () {
+                                    $.swipeoutClose(li);
+                                }, 0);
+                            }
+                        });
+                    });
+                } else {
+                    var li = $('<li class="mui-table-view-cell"><span>暂无黑名单记录..</span></li>');
+                    $("#hmdList").append(li);
+                }
+            },
+            error: function () {
+                
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        })
+
+        appcan.request.ajax({
+            url: window.url + "/Json/djgz",
+            dataType: "json",
+            type: "Get",
+            data: $.extend({}, sendtoken()),
+            success: function (data) {
+
+                data = $.parseJSON(data);
+                $("#djtx").html(data['djtx']);
+                $("#djxj").html(data['djxj']);
+
+                var hqjyTable = $("<table></table>");
+                var hqjyTableTitle = $("<tr><td width='25%'>行为</td><td width='25%'>经验</td><td width='50%'>说明</td></tr>");
+                hqjyTable.append(hqjyTableTitle);
+                var hqjy = data['hqjy'];
+                for (var i = 0; i < hqjy.length; i++) {
+                    var tr = $("<tr><td>" + hqjy[i]['xw'] + "</td><td>" + hqjy[i]['jy'] + "</td><td>" + hqjy[i]['sm'] + "</td></tr>")
+                    hqjyTable.append(tr);
+                }
+                $("#hqjy").html(hqjyTable);
+
+                var kcjyTable = $("<table></table>");
+                var kcjyTableTitle = $("<tr><td width='25%'>行为</td><td width='25%'>经验</td><td width='50%'>说明</td></tr>");
+                kcjyTable.append(kcjyTableTitle);
+                var kcjy = data['kcjy'];
+                for (var i = 0; i < kcjy.length; i++) {
+                    var tr = $("<tr><td>" + kcjy[i]['xw'] + "</td><td>" + kcjy[i]['jy'] + "</td><td>" + kcjy[i]['sm'] + "</td></tr>")
+                    kcjyTable.append(tr);
+                }
+                $("#kcjy").html(kcjyTable);
+
+
+                var dytxTable = $("<table></table>");
+                var dytxTableTitle = $("<tr><td width='30%'> 等级</td><td width='25%'> 男</td><td width='25%'> 女</td><td width='25%'>性别</td></tr>");
+                dytxTable.append(dytxTableTitle);
+                var dytx = data['dytx'];
+                for (var i = 0; i < dytx.length; i++) {
+                    var tr = $("<tr><td>" + dytx[i]['dj'] + "</td><td>" + dytx[i]['nan'] + "</td><td>" + dytx[i]['nv'] + "</td><td>" + dytx[i]['wzxb'] + "</td></tr>")
+                    dytxTable.append(tr);
+                }
+                $("#dytx").html(dytxTable);
+            },
+            error: function () {
+                
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        });
+
+        var buttons = document.getElementsByClassName("mui-btn-primary");
+        for (var i = 0, l = buttons.length; i < l; i++) {
+            buttons[i].addEventListener('tap', function () {
+                submit($(this).attr("name"))
+            })
+        }
+
+        $("#xb").find(".mui-radio").each(function () {
+            $(this).on('tap', function () {
+                var value = $(this).find("input[type='radio']").val();
+                var param = new Object();
+                param['UserID'] = UserID;
+                param['Gender'] = value;
+                submitData(param);
+            });
+        });
+
+        $("#hl").find(".mui-radio").each(function () {
+            $(this).on('tap', function () {
+                var value = $(this).find("input[type='radio']").val();
+                var param = new Object();
+                param['UserID'] = UserID;
+                param['Married'] = value;
+                submitData(param);
+            });
+        });
+        $(".touxiangshangchuan").on('tap', function () {
+            if (localStorage.getItem("authentication_userLevel") < 2) {
+                appcan.window.openToast("2级以上才解锁头像功能，赶紧升级吧", 2500, 5, 0);
+                return;
+            }
+             uexImageBrowser.pickMulti(1);
+            
+        });
+        uexImageBrowser.cbPick = function (opCode, dataType, data) {
+            window.ajaxresult = [];
+            $.when(upload.uploadSrc([data], ajaxresult, "touxiang"))
+                 .done(function () {
+                     appcan.request.ajax({
+                         url: url + "/User/UpdateUserImg",
+                         dataType: "json",
+                         type: "Post",
+                         data: $.extend({
+                             Img: window.ajaxresult[0].src
+                         }, sendtoken()),
+                         success: function (data) {
+                             $(".head-img").attr("src", data);
+                             appcan.window.evaluatePopoverScript("root", "content_4", 'reload()');
+
+                         }
+                     })
+                 }).fail(function () {
+                     
+                     appcan.window.openToast("请求失败", 2500, 5, 0)
+                 })
+        }
+
+        for (var i = 0; i < cityData.length; i++) {
+            var optgroup = $("<optgroup label='" + cityData[i]['text'] + "'></optgroup>");
+            var children = cityData[i]['children'];
+            for (var j = 0; j < children.length; j++) {
+                var text = children[j]['text'];
+                var val = children[j]['value'];
+                var option = $("<option value='" + val + "'>" + text + "</option>");
+                optgroup.append(option);
+            }
+            $("#Location").append(optgroup);
+        }
+
+    })
+
+
+
+    function submit(domId) {
+        if (domId) {
+
+            var param = new Object();
+            param['UserID'] = UserID;
+            var validate = true;
+            $("#" + domId).find("input").each(function () {
+                var rgexp = $(this).attr("rgexp");
+                var name = $(this).attr("name");
+                var value = $(this).val();
+                if (rgexp) {
+                    var reg = new RegExp(rgexp);
+                    if (!reg.test(value)) {
+                        validate = false;
+                    }
+                }
+                param[name] = value;
+            });
+            if (validate) {
+                submitData(param);
+            } else {
+                mui.toast("请输入正确格式的数据！");
+            }
+        }
+    }
+
+    function submitData(param) {
+        //修改数据的url地址所用修改使用一个地址
+
+        appcan.request.ajax({
+            url: window.url + "/User/UpdateUserView",
+            dataType: "json",
+            type: "Post",
+            data: $.extend(param, sendtoken()),
+            success: function (data) {
+
+                if (data == 1) {
+                    for (var pa in param) {
+                        $("span[name='" + pa + "']").empty().append(param[pa]);
+                    }
+                    mui.toast("修改成功");
+                    appcan.window.evaluatePopoverScript("root", "content_4", 'reload()');
+                    setTimeout(function () {
+                        if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+                            viewApi.back();
+                        }
+                    }, 1000)
+                } else {
+                    mui.toast("修改出错！");
+                }
+            },
+            error: function () {
+                
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        })
+    }
+
+    function ages(str) {
+        var r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+        if (r == null) return false;
+        var d = new Date(r[1], r[3] - 1, r[4]);
+        if (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]) {
+            var Y = new Date().getFullYear();
+            return (Y - r[1]);
+        }
+        return ("输入的日期格式错误！");
+    }
+
+
+    function getAstro(m, d) {
+        return "魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯".substr(m * 2 - (d < "102223444433".charAt(m - 1) - -19) * 2, 2) + "座";
+    }
+
+    var picker = null;
+    var viewApi;var view;
+    (function ($) {
+         //加载数据
+         appcan.request.ajax({
+                url: window.url + "/User/GetUserView",
+                dataType: "json",
+                type: "Post",
+                data: $.extend({UserID:UserID}, sendtoken()),
+                success: function (data) {
+                    if (data != null) {
+
+                            for(var param in data){
+                                jQuery("span[name='"+param+"']").empty().append(data[param]);
+                                if("Gender"!=param&&"Married"!=param){
+                                    jQuery("input[name='"+param+"']").val(data[param]);
+                                }
+                            }
+                            jQuery("img[name='HeadPortrait']").attr("src",data['HeadPortrait']);
+                            jQuery("input[name='Gender']").each(function () {
+                                if (jQuery(this).val() == data['Gender']) {
+                                    jQuery(this).attr("checked",true);
+                                }
+                            });
+                            
+                            jQuery("input[name='Married']").each(function () {
+                                if (jQuery(this).val() == data['Married']) {
+                                    jQuery(this).attr("checked",true);
+                                }
+                            });
+                            var userType = data['type'];
+                            mui.init();
+                             //初始化单页view
+                            viewApi = mui('#app').view({
+                                defaultPage: '#setting'+userType
+                            });
+                             //初始化单页的区域滚动
+                           mui('.mui-scroll-wrapper').scroll();
+                         }else{  
+                            
+                         }  
+                },
+                error: function () {
+                    
+                    appcan.window.openToast("请求失败", 2500, 5, 0)
+                }
+            })
+            
+            
+            //处理view的后退与webview后退
+            var oldBack = $.back;
+            $.back = function() {
+                if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+                    viewApi.back();
+                    if(viewApi.activePage){
+                        jQuery(viewApi.activePage).find("input").each(function(){
+                            var id = jQuery(this).attr("id");
+                            var name = jQuery(this).attr("name");
+                            if(jQuery("span[name='"+name+"']").length>0){
+                                var value = jQuery(jQuery("span[name='"+name+"']")[0]).text();
+                                jQuery(this).val(value);
+                            }
+                        })
+                        
+                        
+                    }
+                } else { //执行webview后退
+                    oldBack();
+                }
+            };
+
+        var result = jQuery("#nl").find("input[name='Age']");
+        var constellation = jQuery("#nl").find("input[name='Constellation']");
+        var btns = jQuery("#nl").find("input[name='Age']");
+        var picker;
+        btns.each(function (i, btn) {
+            btn.addEventListener('tap', function () {
+                var date = new Date();
+                var maxYear = date.getFullYear()
+                var options = { "type": "date", "beginYear": 1900, "endYear": maxYear };
+                var picker = new $.DtPicker(options);
+                picker.show(function (rs) {
+                    var birthDay = rs.text;
+                    var age = ages(birthDay);
+                    result.val(age);
+
+                    var Constellation = getAstro(rs.m.value, rs.d.value);
+                    constellation.val(Constellation)
+                    /*
+                     * rs.value 拼合后的 value
+                     * rs.text 拼合后的 text
+                     * rs.y 年，可以通过 rs.y.value 和 rs.y.text 获取值和文本
+                     * rs.m 月，用法同年
+                     * rs.d 日，用法同年
+                     * rs.h 时，用法同年
+                     * rs.i 分（minutes 的第二个字母），用法同年
+                     */
+                    /*
+                     * 返回 false 可以阻止选择框的关闭
+                     * return false;
+                     */
+                    /*
+                     * 释放组件资源，释放后将将不能再操作组件
+                     * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+                     * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                     * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                     */
+                    picker.dispose();
+                });
+            }, false);
+        });
+
+        var cityPicker = new $.PopPicker({
+            layer: 2
+        });
+        cityPicker.setData(cityData);
+        var showCityPickerButton = document.getElementById('Location');
+        var cityResult = jQuery('#Location');
+        showCityPickerButton.addEventListener('tap', function (event) {
+            cityPicker.show(function (items) {
+                cityResult.val(items[0].text + items[1].text);
+                //返回 false 可以阻止选择框的关闭
+                //return false;
+            });
+        }, false);
+
+
+
+    })(mui);
+</script>
+</html>

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+    
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg headPlaceholder pageload">
+        <div class="head   bc-head bc-text-head ">
+            <div class="nav-left nav-active-home">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center search">
+                <p>
+                    <input type="text" placeholder="搜索你感兴趣的商品" />
+                </p>
+            </div>
+            <div class="nav-right nav-active-home" style="width:4em;">
+                <span class="head-detail button-right submit"><var class="iconfont icon-search"></var> 搜索</span>
+            </div>
+        </div>
+        <div id="shopType" class="backgoundColor">
+        </div>
+
+    </div>
+
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/shoptype.js"></script>
+
+<script>
+    appcan.ready(function () {
+        appcan.button(".nav-left", "ani-act", function () {
+            appcan.window.close(-1);
+        })
+
+        $(".button-right.submit").on("tap", function () {
+            var val = $.trim($(".search input").val());
+            if (val.length > 0) {
+                localStorage.setItem("request", "{search:'" + val + "',text:'搜索'}")
+                appcan.window.evaluateScript("shoplist", 'reload();');
+                appcan.openWinWithUrl("shoplist", "shoplist.html", 2, 0, 400);
+            }
+        })
+
+        var shopType = appcan.shopType({
+            selector: '#shopType',
+        });
+
+        appcan.request.ajax({
+            url: url + "/GoodGategory/Gets",
+            type: "Get",
+            dataType: "json",
+            success: function (data) {
+                $(".page.pageload").removeClass("pageload");
+                shopType.set(data);
+                jQuery('#shopType img').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+            },
+            error: function () {
+                $(".page.pageload").removeClass("pageload");
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        })
+    })
+</script>

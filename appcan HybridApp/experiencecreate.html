@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">发表体验</div>
+            <div class="nav-right">
+                <span class="bc-head bc-text-head button-right submit">发送</span>
+            </div>
+        </div>
+
+        <div class="backgoundColor  createPost">
+            <div class="title colorccc" contenteditable="true" data-edit="false">
+                <span>标题(必填，至少4个字)</span>
+            </div>
+            <hr />
+            <ul class="experienceul">
+            </ul>
+
+            <ul class="photo">
+                <li class="add" id="addMark"><span class="iconfont icon-jiahao"></span></li>
+                <!--<li class="add" id="paizhao"><span class="iconfont icon-paizhao"></span></li>-->
+            </ul>
+        </div>
+
+        <div class="loading uhide">
+            <img src="StyleSheet/load.gif" />
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/experiencecreate.js"></script>
+<script src="JavaScript/upload.js"></script>
+
+<script>
+    appcan.ready(function () {
+        var request = localStorage.getItem("request");
+        appcan.button(".nav-left", "ani-act", function () {
+            appcan.window.close(-1);
+
+        })
+        var createPost = $(".createPost");
+        appcan.experiencecreate({ createPost: createPost })
+
+        $(".submit").on("tap", function () {
+            var title = $(".title");
+            if (title.attr("data-edit") == "false" || title.html().trim().length < 4) {
+                appcan.window.openToast("标题(必填，至少4个字)", 2500, 5, 0)
+            }
+            else {
+                var deatil = "";
+                _.each($(".experienceul li input"), function (item) {
+                    deatil += ($(item).val() || " ") + "####";
+                })
+                $(".loading").removeClass("uhide");
+                var list = $(".experienceul li img");
+                window.ajaxresult = [];
+                $.when(upload.upload(list, ajaxresult, "tiyanshi"))
+                    .done(function () {
+                        var arr = _.sortBy(window.ajaxresult, function (item) { return item.fileID; })
+                        var srcList = _.map(arr, function (item) { return item.src });
+
+                        appcan.request.ajax({
+                            url: url + "/Experience/CreateExperience",
+                            dataType: "json",
+                            type: "Post",
+                            data: $.extend({
+                                id: request,
+                                Title: title.html(),
+                                Deatil: deatil,
+                                ImgList: srcList.join()
+                            }, sendtoken()),
+                            success: function (data) {
+                                $(".loading").addClass("uhide");
+                                data = eval("(" + data + ")");
+                                if (data.error) {
+                                    
+                                    appcan.window.openToast(data.error, 2500, 5, 0)
+                                    return;
+                                }
+
+                        
+                                appcan.openWinWithUrl("mytiyan", "mytiyan.html", 2, 0, 400);
+                                appcan.window.close(0, 0);
+                            },
+                            error: function () {
+                                $(".loading").addClass("uhide");
+                                
+                                appcan.window.openToast("请求失败", 2500, 5, 0)
+                            }
+                        })
+
+
+                    })
+                    .fail(function () {
+                        $(".loading").addClass("uhide");
+                        
+                        appcan.window.openToast("请求失败", 2500, 5, 0)
+                    })
+
+
+
+            }
+        })
+    })
+</script>

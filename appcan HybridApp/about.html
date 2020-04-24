@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <style>
+        .bar-bottom {
+            bottom: 0;
+            display: table;
+            width: 100%;
+            height: 3em;
+            padding: 0;
+            table-layout: fixed;
+            border-top: 0;
+            border-bottom: 0;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
+        .bar {
+            position: fixed;
+            z-index: 10;
+            right: 0;
+            left: 0;
+            height: 3em;
+            padding-right: .8em;
+            padding-left: .8em;
+            border-bottom: 0;
+            background-color: #f7f7f7;
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,.85);
+            box-shadow: 0 0 1px rgba(0,0,0,.85);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+    </style>
+
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">关于分享</div>
+            <div class="nav-right">
+
+            </div>
+        </div>
+
+        <div>
+            <div style="margin: auto; ">
+                <div id="HeadPortraitDiv" style="  height:40%; padding-top:.8em;overflow:hidden;text-align: center;margin: auto">
+                    <image src="icon.png" style="width: 4em;"></image>
+                </div>
+            </div>
+            <div style="margin-top:10px;margin-left: 10px;  ">
+                <span>联系我们</span><br />
+                <span style="margin-left:10px;">电话：</span><span id="tel"></span>
+            </div>
+            <div style="margin-top:10px;margin-left: 10px; ">
+                <span>商务合作</span><br />
+                <span style="margin-left:10px;">Email：</span><span id="email"></span>
+            </div>
+            <div style="margin-top:10px;margin-left: 10px; ">
+                <span>意见反馈与建议</span><br />
+                <span style="margin-left:10px;">QQ：</span><span id="qq"></span><br />
+                <span style="margin-left:10px;">官方微信：</span><span id="webChat"></span>
+            </div>
+        </div>
+
+        <div class="bar bar-bottom">
+            <div style="margin: auto;  text-align: center;color: #777;">
+                <div><span id="bq" style="padding: 0.5em;">分享版权所有</span><span id="banben"></span></div>
+                <div id="gs">上海创界文化传播有限公司</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+
+<script>
+    appcan.ready(function () {
+
+        var request = localStorage.getItem("request");
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+
+        appcan.request.ajax({
+            url: window.url + "/Json/about",
+            dataType: "json",
+            type: "Get",
+            data: $.extend({}, sendtoken()),
+            success: function (data) {
+                console.log(data);
+                data = $.parseJSON(data);
+                for (var param in data) {
+                    $("#" + param).empty().append(data[param]);
+                }
+            },
+            error: function () {
+
+                appcan.window.openToast("请求失败", 2500, 5, 0)
+            }
+        });
+    })
+</script>

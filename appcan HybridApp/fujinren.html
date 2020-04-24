@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg headPlaceholder pageload">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">附近人</div>
+            <div class="nav-right  ">
+
+            </div>
+        </div>
+
+        <div class="postList">
+            <div class="circleDetailList uhide">
+                <ul></ul>
+            </div>
+        </div>
+        <div class="empty uhide">
+            <img src="StyleSheet/iconfont-tanhao.png" />
+            <span>没有相关帖子</span>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/circlelist.js"></script>
+<script src="JavaScript/circledetailtoplist.js"></script>
+<script src="JavaScript/circledetaillist.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script>
+    appcan.ready(function () {
+        var request = localStorage.getItem("request");
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+
+        var circleDetailList = appcan.circleDetailList({
+            selector: '.circleDetailList'
+
+        });
+        window.pageIndex = {
+            index: 1,
+            end: false
+        }
+        //根据经纬度获取具体地址
+        function LocationSuccess(opCode, dataType, data) {
+            if(window.fujinren)
+            {
+                return;
+            }
+            window.fujinren = true;
+            data = JSON.parse(data);
+            appcan.request.ajax({
+                url: url + "/CirclePost/GetsFujin",
+                type: "post",
+                dataType: "json",
+                data: $.extend({ city: data.addressComponent.city, province: data.addressComponent.province, index: window.pageIndex.index }),
+                success: function (data) {
+                    $(".page.pageload").removeClass("pageload");
+                    if (data.length == 0) {
+                        $(".empty").removeClass("uhide");
+                        return;
+                    }
+                    circleDetailList.add(data, window.pageIndex.index);
+                    jQuery('.circleDetailList  li[data-pageindex=' + window.pageIndex.index + '] .imglist p').lazyload({
+                        effect: 'fadeIn',
+                        threshold: 200
+                    });
+                    scrollpage();
+                },
+                error: function () {
+                    $(".page.pageload").removeClass("pageload");
+                    appcan.window.openToast("请求失败", 2500, 5, 0)
+                }
+            })
+
+        }
+        function scrollpage() {
+            var resizeTimer = null;
+            $(window).on('scroll', function () {
+
+                if (resizeTimer) {
+                    clearTimeout(resizeTimer)
+                }
+                resizeTimer = setTimeout(function () {
+
+                    if ($(window).scrollTop() + $(window).height() + 20 >= $(document).height() && $(window).scrollTop() > 20) {
+                        if (!window.pageIndex.end) {
+                            $(".pageIndexLoad").show();
+                        }
+                        window.pageIndex.index++;
+                        appcan.request.ajax({
+                            url: url + "/CirclePost/GetsFujin",
+                            type: "post",
+                            dataType: "json",
+                            data: $.extend({ city: data.addressComponent.city, province: data.addressComponent.province, index: window.pageIndex.index }),
+                            success: function (data) {
+                                $(".page.pageload").removeClass("pageload");
+                                if (data.length == 0) {
+                                    $(".empty").removeClass("uhide");
+                                    return;
+                                }
+                                circleDetailList.add(data, window.pageIndex.index);
+                                jQuery('.circleDetailList  li[data-pageindex=' + window.pageIndex.index + '] .imglist p').lazyload({
+                                    effect: 'fadeIn',
+                                    threshold: 200
+                                });
+                                scrollpage();
+                            },
+                            error: function () {
+                                $(".page.pageload").removeClass("pageload");
+                                appcan.window.openToast("请求失败", 2500, 5, 0)
+                            }
+                        })
+                    }
+                }, 250);
+            }
+            );
+        }
+
+
+        //启动定位功能，返回的通知函数 的回调函数
+        function locationCallback(lat, log) {
+            uexLocation.getAddress(lat, log, 1)
+
+        }
+        //获取当前经纬度
+        function locationFun() {
+            //0最准确，1十米以内 ，2百米以内，3千米内，4三千米以内
+            var locLevel = 0;
+            //distanceFilter 更新距离，如果设置为 100m,则100m以内不回调定位
+            var distanceFilter = 10;
+            //以上两参数仅ios支持
+            uexLocation.openLocation(locLevel, distanceFilter);
+        }
+        uexLocation.onChange = locationCallback;
+        uexLocation.cbGetAddress = LocationSuccess;
+        locationFun();
+
+    })
+</script>

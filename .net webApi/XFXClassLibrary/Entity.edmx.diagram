@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c7bd0c65ffb94375b0885629f80d49a3" Name="Diagram1">
+        <EntityTypeShape EntityType="xingfenxiangappModel.Advertisement" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.CircleManage" Width="1.5" PointX="6" PointY="27.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.CirclePost" Width="1.5" PointX="9" PointY="29.625" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.CirclePostLog" Width="1.5" PointX="11.25" PointY="33.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.CirclePostReply" Width="1.5" PointX="14.25" PointY="26.875" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.CirclePostReplyChild" Width="1.5" PointX="16.5" PointY="30.125" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.CircleType" Width="1.5" PointX="3.75" PointY="18.875" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.Complaint" Width="1.5" PointX="14.25" PointY="31" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.DiscountCoupon" Width="1.5" PointX="3.75" PointY="43" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.DiscountCouponType" Width="1.5" PointX="1.5" PointY="43.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.ExperienceLevel" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.Good" Width="1.5" PointX="0.75" PointY="20.125" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodCart" Width="1.5" PointX="3" PointY="30.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodChild" Width="1.5" PointX="0.75" PointY="37.625" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodCollection" Width="1.5" PointX="9" PointY="36.5" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodEvaluate" Width="1.5" PointX="6" PointY="30.875" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodExperience" Width="1.5" PointX="9" PointY="24.375" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodExperienceReply" Width="1.5" PointX="11.25" PointY="28.875" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodExperienceReplyChild" Width="1.5" PointX="3" PointY="22.875" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodFilter" Width="1.5" PointX="6.75" PointY="16.125" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodFilterTag" Width="1.5" PointX="4.5" PointY="16.375" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodGategory" Width="1.5" PointX="1.5" PointY="15.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.GoodHome" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.Order" Width="1.5" PointX="6" PointY="35.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.OrderExtend" Width="1.5" PointX="8.25" PointY="42.625" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.OrderLog" Width="1.5" PointX="8.25" PointY="39.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.User" Width="1.5" PointX="0.75" PointY="28.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserAddress" Width="1.5" PointX="3" PointY="26.875" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserBlacklist" Width="1.5" PointX="3" PointY="74.625" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserExtend" Width="1.5" PointX="3" PointY="34.125" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserGradeLog" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserLog" Width="1.5" PointX="3" PointY="67.25" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserSMS" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.WholeFieldActivity" Width="1.5" PointX="4.75" PointY="4.75" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CircleManage_CircleType" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CircleManage_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePost_CircleType" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePost_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostLog_CirclePost" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostReply_CirclePost" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostReplyChild_CirclePost" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_Complaint_CirclePost" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostLog_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostReply_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostReplyChild_CirclePostReply" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostReplyChild_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CirclePostReplyChild_User1" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_CircleType_CircleType" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_Complaint_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_Complaint_User1" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_DiscountCoupon_DiscountCouponType" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_Order_Order" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_Good_GoodGategory" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodCart_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodChild_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodCollection_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodEvaluate_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperience_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperienceReply_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperienceReplyChild_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodFilter_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodHome_Good" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodCart_GoodChild" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodCart_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodChild_GoodGategory" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodCollection_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodEvaluate_GoodGategory" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodEvaluate_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperience_GoodGategory" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperience_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperienceReply_GoodExperience" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperienceReply_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperienceReplyChild_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodExperienceReplyChild_User1" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodFilter_GoodFilterTag" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodFilter_GoodGategory" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_GoodHome_GoodGategory" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_Order_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_OrderExtend_Order" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_OrderLog_Order" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserAddress_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserBlacklist_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserBlacklist_User1" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserExtend_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserLog_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserLog_User1" />
+        <AssociationConnector Association="xingfenxiangappModel.GoodMatch" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.Welfare" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="xingfenxiangappModel.UserLetter" Width="1.5" PointX="14.25" PointY="34.625" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserLetter_CirclePost" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserLetter_User" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserLetter_User1" />
+        <AssociationConnector Association="xingfenxiangappModel.FK_UserLetter_UserLetter" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

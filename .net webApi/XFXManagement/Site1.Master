@@ -1,0 +1,37 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="XFXManagement.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css" />
+    <link rel="stylesheet" href="Css/init.css" />
+    <link rel="stylesheet" href="Css/workspaceinit.css" />
+    <link rel="stylesheet" href="Css/workspace.css" />
+    <script src="/JavaScript/jquery-1.11.3.js"></script>
+    <script src="/JavaScript/underscore.js"></script>
+    <script src="/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="tabs" style="display: none">
+        <div class="text-section">
+            <h1>Dashboard</h1>
+            <p>This is a quick overview of some features</p>
+        </div>
+        <ul class="states">
+            <li class="error">Error : This is an error placed text message.</li>
+            <li class="warning">Warning: This is a warning placed text message.</li>
+            <li class="succes">Succes : This is a succes placed text message.</li>
+        </ul>
+    </div>
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

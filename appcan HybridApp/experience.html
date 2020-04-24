@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+    <link rel="stylesheet" href="StyleSheet/islider.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #333;
+            overflow: hidden;
+        }
+
+        #iSlider-wrapper-bg {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        #iSlider-wrapper-bg1 {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            background-size: contain;
+            opacity: 0.1;
+            background-color: #EB6996;
+        }
+
+        /*ul wrapper*/
+        #iSlider-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            z-index: 2;
+        }
+
+            #iSlider-wrapper li {
+                -webkit-box-orient: vertical;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                box-sizing: border-box;
+                border-bottom: 3em solid transparent;
+            }
+
+                #iSlider-wrapper li label {
+                    bottom: initial;
+                    position: initial;
+                    word-wrap: break-word;
+                    line-height: 1.2em;
+                    max-height: 3.6em;
+                    overflow: hidden;
+                    background: #fefefe;
+                    color: #777;
+                    padding: 0.3em;
+                    height: auto;
+                    padding: 0.2em 0 0;
+                }
+
+        .productBottom {
+            z-index: 3;
+        }
+
+        #iSlider-wrapper li .experienceIndex {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 0.5em;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            padding-bottom: 3.2em;
+        }
+
+            #iSlider-wrapper li .experienceIndex > p:first-child {
+                margin-top: 3em;
+                opacity: 0.7;
+            }
+
+                #iSlider-wrapper li .experienceIndex > p:first-child img {
+                    width: 4em;
+                    height: 4em;
+                    border-radius: 50%;
+                    display: inline-block !important;
+                    vertical-align: middle;
+                    margin-right: 0.5em;
+                }
+
+            #iSlider-wrapper li .experienceIndex .ub-f1 {
+                margin: 0.5em 0;
+                overflow: auto;
+            }
+
+            #iSlider-wrapper li .experienceIndex .goodex {
+                border: 1px solid #ccc;
+                border-radius: 0.3em;
+                width: 10em;
+                padding: 0.3em;
+                background: #fefefe;
+                opacity: 0.7;
+            }
+
+                #iSlider-wrapper li .experienceIndex .goodex:active {
+                    opacity: 0.9;
+                }
+
+                #iSlider-wrapper li .experienceIndex .goodex img {
+                    width: 4em;
+                    display: inline-block !important;
+                    vertical-align: top;
+                    margin-right: 0.3em;
+                }
+    </style>
+</head>
+
+<body class="um-vp">
+    <div class="page bc-bg ">
+        <div id="header" class="head  head-detail" style=
+             "-webkit-box-pack: justify; 
+  -webkit-justify-content: space-between;
+  justify-content: space-between; background-color:transparent; z-index:3;">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-right nav-right-active">
+                <span class="iconfont icon-gouwuche "></span>
+            </div>
+        </div>
+        <div id="iSlider-wrapper-bg"></div>
+        <div id="iSlider-wrapper-bg1"></div>
+        <div id="iSlider-wrapper"></div>
+
+        <div class="productBottom backgoundColor">
+            <div class="pbleft">
+                <span class="huifu"> <b class="iconfont icon-huifu"></b> <var></var></span>
+            </div>
+            <p class="pbright">
+                <span class="shopcar" data-mark="shopcar">加入购物车</span>
+                <span class="buy" data-mark="buy">立即购买</span>
+            </p>
+        </div>
+
+        <div class="backgroundCover uhide">
+        </div>
+        <div class="shopDetailChildPage backgoundColor">
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScirptPlugIn/iSlider.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script src="JavaScript/shopdetail.js"></script>
+<script>
+    appcan.ready(function () {
+        $(".experienceIndex").height($(".experienceIndex").width() * 0.7);
+        var request = eval("(" + localStorage.getItem("request") + ")");
+
+        $(".nav-left").on("tap", function () {
+            appcan.window.close(-1);
+        })
+
+        $(".nav-right").on("tap", function () {
+            appcan.openWinWithUrl("shopcar", "shopcar.html", 2, 0, 400)
+        })
+
+
+        appcan.request.ajax({
+            url: url + "/Experience/Get",
+            type: "GET",
+            dataType: "json",
+            data: { id: request["ExperienceID"] },
+            success: function (data) {
+                $(".productBottom var").html(data.ReplyNum);
+                var Images = data.Images.split(",");
+                var Deatils = data.Deatil.split("####");
+                var list = [];
+                list.push({
+                    content: "<div class='experienceIndex'> <p >\
+                    <span><img class='touxiang' src='" + data.User.HeadPortrait + "' data-original='" + data.User.HeadPortrait + "'/data-userID='" + data.User.UserID + "' data-type='" + data.User.Type + "'/>" + data.User.NickName + "</span>\
+                </p>\ <p class='ub-f1'>" + data.Title + "</p> <div class='goodex'   data-id='" + data.GoodID + "'> <p> <img src='" + data.Good.Image + "' data-original='" + data.Good.Image + "' />￥" + data.Good.RealPrice.toFixed(2) + "</p><p class='textoverflow'>" + data.Good.Title + "</p></div></div>"
+                })
+                $(" #iSlider-wrapper-bg").css("background-image", "url(" + Images[0] + ")");
+                _.each(Images, function (item, index) {
+
+                    list.push({ content: "<img  src=\"" + item + "\"  data-original=\"" + item + "\" /> <label>" + Deatils[index] + "</label>" })
+                });
+                var S = new iSlider({
+                    dom: document.getElementById('iSlider-wrapper'),
+                    data: list,
+                    isLooping: 1,
+                    isOverspread: 1,
+                    animateTime: 800,
+                    isAutoplay: false
+                });
+
+                $('#iSlider-wrapper img').lazyload({
+                    effect: 'fadeIn',
+                    threshold: 200
+                });
+            },
+            error: function () {
+
+            }
+        })
+
+        appcan.request.ajax({
+            url: url + "/Good/Get",
+            type: "POST",
+            dataType: "json",
+            data: $.extend({ GoodID: request["GoodID"] }, sendtoken()),
+            success: function (data) {
+
+                data.baoyou = false;
+                data.promise = ["七天无理由", "隐私包装", "正品保证", "按时发货"];
+                appcan.shopDetail(
+                  {
+                      selector: '.shopDetail',
+                      selectorNeirong: ".shopNeirong",
+                      selectorChildPage: '.shopDetailChildPage',
+                      data: data
+                  });
+            },
+            error: function () {
+
+            }
+        })
+
+
+
+        $(".huifu").on("tap", function () {
+
+            localStorage.setItem("request", request["ExperienceID"])
+            appcan.openWinWithUrl("experiencehuifu", "experiencehuifu.html", 2, 0, 400)
+        })
+        $("#iSlider-wrapper").on("tap", ".goodex", function () {
+            localStorage.setItem("request", $(this).attr("data-id"))
+
+            appcan.openWinWithUrl("shopdetail", "shopdetail.html", 2, 0, 400)
+        })
+
+        window.reload = function () {
+            appcan.request.ajax({
+                url: url + "/Experience/GetReplyNum",
+                type: "POST",
+                dataType: "json",
+                data: { id: request["ExperienceID"] },
+                success: function (data) {
+                    $(".productBottom var").html(data.ReplyNum);
+                }
+            });
+        }
+
+        $('#iSlider-wrapper').on("tap", ".experienceIndex img.touxiang ", function () {
+            localStorage.setItem("request", $(this).attr("data-userid"))
+            appcan.openWinWithUrl("userInfo", "userInfo.html", 2, 0, 400)
+        })
+    })
+</script>

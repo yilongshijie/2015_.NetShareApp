@@ -1,0 +1,435 @@
+﻿h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.2em;
+}
+
+* {
+    word-break: break-all;
+}
+
+var {
+    font-style: normal;
+}
+
+b {
+    font-weight: 400;
+}
+
+.uhide1 {
+    display: none !important;
+}
+
+.page {
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    min-height: 100%;
+    box-sizing: border-box;
+    font-size: 1em;
+    line-height: 1.2em;
+    font-family: 'Microsoft YaHei';
+    color: #777;
+}
+
+input[type=text] {
+    color: #777;
+}
+
+input[type=password] {
+    color: #777;
+}
+
+ul {
+    list-style: none;
+}
+
+.backgroundCover {
+    background: #000;
+    opacity: 0.6;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#footer {
+    line-height: 1em;
+}
+
+.backgroundCover1 {
+    background: #000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0.3;
+}
+
+.colorUseBc-head {
+    color: #EB6996;
+}
+
+.colorUserBc-bg {
+    color: #dbdbdb;
+    border-color: #dbdbdb;
+}
+
+.backgoundColor {
+    background-color: #fefefe;
+}
+
+.buttonDiv {
+    padding: 0.5em;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+    .buttonDiv input[type=button] {
+        border-radius: 0.3em;
+        background: #EB6996;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        border: 0;
+        font-size: 1em;
+        line-height: 2.5em;
+        color: #fff;
+    }
+
+        .buttonDiv input[type=button]:active {
+            background-color: #ea568a;
+        }
+
+    .buttonDiv span.input {
+        border-radius: 0.3em;
+        background: #EB6996;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        border: 0;
+        font-size: 1em;
+        line-height: 2.5em;
+        color: #fff;
+    }
+
+        .buttonDiv span.input:active {
+            background-color: #ea568a;
+        }
+
+
+.head {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    line-height: 2.5em;
+    text-align: center;
+    height: 2.5em;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.headHome {
+    position: static;
+}
+
+.headPlaceholder {
+    padding-top: 2.5em;
+}
+
+.head-index {
+}
+
+.head-detail {
+    background-color: #fafafa;
+    color: #444;
+}
+
+.head-detail-border {
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.head .nav-left {
+    width: 3em;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.nav-left-active:active {
+    background-color: #efefef;
+}
+
+.button-active:active {
+    background-color: #efefef;
+}
+
+
+.nav-active-home:active {
+    background-color: #ea568a;
+}
+
+.head .nav-left .fa-1-3x {
+    font-size: 1.3em;
+}
+
+.head .fa-1-5x {
+    font-size: 1.5em;
+}
+
+.head .search {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+    .head .search p {
+        padding: 0.3em;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+        .head .search p input {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            opacity: 0.9;
+            font-size: 0.75em;
+            text-indent: 0.5em;
+        }
+
+
+
+.head .nav-center {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    font-size: 1.2em;
+}
+
+.head .nav-right {
+    width: 3em;
+    position: relative;
+}
+
+    .head .nav-right .button-right {
+        padding: 0.5em;
+        font-size: 0.8em;
+        border-radius: 0.3em;
+    }
+
+    .head .nav-right .icon-gouwuche {
+        font-size: 1.5em;
+        position: relative;
+    }
+
+.icon-gouwuche.you:after {
+    content: " ";
+    position: absolute;
+    background: #EB6996;
+    border-radius: 50%;
+    display: block;
+    width: 0.5em;
+    height: 0.5em;
+    top: -0.1em;
+    right: -0.2em;
+}
+
+.head .nav-right-active:active {
+    background: #efefef;
+}
+
+.head .icon-zhengguiicon40 {
+    font-size: 1.5em;
+}
+
+.head .submit {
+    opacity: 0.9;
+}
+
+    .head .submit:active {
+        background-color: #ea568a;
+    }
+
+.head   .xiaoxiNum {
+    background: #ff9501;
+    padding: 0.1em;
+    font-size: 0.8em;
+    min-width: 1em;
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+    color: #fff;
+    border-radius: 06em;
+    position: absolute;
+    left: 1.9em;
+    top: 0.4em;
+    overflow: hidden;
+}
+
+
+
+.head .nav-right-create {
+    line-height: 2.5em;
+}
+
+    .head .nav-right-create span {
+        font-size: 1.5em;
+        font-weight: 900;
+        display: block;
+    }
+
+        .head .nav-right-create span:active {
+            background-color: #efefef;
+        }
+
+.ulev-1.ub.ub-f1:active {
+    background-color: #efefef;
+}
+
+.empty {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+
+    .empty img {
+        width: 7em;
+        margin: 0 auto;
+    }
+
+    .empty span {
+        color: #aaa;
+        display: block;
+        text-align: center;
+    }
+
+.loading {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    background-color: #000;
+    opacity: 0.5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+    .loading img {
+        width: 2em;
+        height: 2em;
+    }
+
+
+@-webkit-keyframes shopDetailChildPage1 {
+    from {
+        top: 100%;
+    }
+
+    to {
+        top: 20%;
+    }
+}
+
+@keyframes shopDetailChildPage1 {
+    from {
+        top: 100%;
+    }
+
+    to {
+        top: 20%;
+    }
+}
+
+@-webkit-keyframes shopDetailChildPage2 {
+    from {
+        top: 20%;
+    }
+
+    to {
+        top: 200%;
+    }
+}
+
+@keyframes shopDetailChildPage2 {
+    from {
+        top: 20%;
+    }
+
+    to {
+        top: 200%;
+    }
+}
+
+.textoverflow {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.pageload {
+    background-image: url(load.gif);
+    background-size: 2.5em;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.pageIndexLoad {
+    text-align: center;
+    padding: 0.5em;
+    display: none;
+}
+
+    .pageIndexLoad img {
+        width: 2.5em;
+    }

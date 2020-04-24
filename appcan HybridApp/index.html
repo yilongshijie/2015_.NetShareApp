@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+    <link rel="stylesheet" href="css/ui-box.css" />
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg  ub ub-ver ">
+        <div id="content" class="ub-f1 tx-l ">
+        </div>
+        <div id="footer" class="uf t-bla ub ubt bc-border backgoundColor">
+            <div class="ub ub-f1 tab" id="footer1">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="js/appcan.tab.js"></script>
+<script>
+
+    appcan.ready(function () {
+        window.conArray = [false, false, false, false, false];
+        var tabview = appcan.tab({
+            selector: "#footer1",
+            hasIcon: true,
+            hasAnim: false,
+            hasLabel: true,
+            hasBadge: true,
+            index: 0,
+            data: [
+                {
+                    label: "社区",
+                    icon: " iconfont   icon-luntan  "
+                }, {
+                    label: "商城",
+                    icon: " iconfont  icon-shangcheng  "
+                }, {
+                    label: "体验师",
+                    icon: " iconfont icon-nvren  "
+                }, {
+                    label: "购物车",
+                    icon: "iconfont icon-gouwuche ",
+                }, {
+                    label: "我",
+                    icon: " iconfont icon-wo ",
+                }]
+        });
+
+        $("#footer1 .ulev-1.ub.ub-f1").on("tap", function () {
+            openCon($(this).attr("data-index"));
+        })
+
+        function openCon(idx) {
+            if (!conArray[idx]) {
+                appcan.openPopoverByEle("content", "indexCon" + idx + ".html", 0, 0, 0, 'content_' + idx);
+                conArray[idx] = true;
+            } else {
+                appcan.bringPopoverToFront('content_' + idx);
+            }
+        }
+
+        openCon(0);
+
+    });
+
+
+
+
+</script>

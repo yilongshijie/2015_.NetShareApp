@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class=" page bc-bg headPlaceholder">
+        <div class="head   bc-head bc-text-head ">
+            <div class="nav-left">
+            </div>
+            <div class="nav-center">购物车</div>
+            <div class="nav-right nav-active-home">
+            </div>
+        </div>
+        <ul class="shopcarUl uhide"></ul>
+        <div class="empty uhide">
+            <img src="StyleSheet/iconfont-gouwuche.png"/>
+            <span>购物车里没有商品</span>
+        </div>
+    </div>
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/common.js"></script>
+<script src="JavaScript/shopcar.js"></script>
+<script src="JavaScript/xiaoxi.js"></script>
+<script src="JavaScirptPlugIn/jquery.lazyload.js"></script>
+<script>
+    appcan.ready(function () {
+        appcan.xiaoxi({
+            nav_right: $(".nav-right")
+        })
+        window.reload = function () {
+
+
+            $(".shopcarUl li, .shopCarBottom").remove();
+            $(".shopcarUl , .empty").addClass("uhide");
+            if (localStorage.getItem("authentication_token") == null) {
+                var cache_shopcar = localStorage.getItem("cache_shopcar");
+                if (cache_shopcar) {
+
+                    appcan.request.ajax({
+                        url: url + "/GoodCart/GetGoodCartLocalStorage",
+                        dataType: "json",
+                        type: "Post",
+                        data: $.extend({ cache_shopcar: cache_shopcar }),
+                        success: function (data) {
+
+                            appcan.shopcar({
+                                selector: ".shopcarUl",
+                                data: data,
+                                page: "index",
+                                empty: ".empty"
+                            });
+                            var cache_shopcar = { cache_shopcar: [] };
+                            _.each(data, function (item) {
+                                cache_shopcar.cache_shopcar.push({ goodchildid: item.goodChildID, num: item.num })
+                            });
+                            cache_shopcar = JSON.stringify(cache_shopcar);
+                            localStorage.setItem("cache_shopcar", cache_shopcar);
+                            jQuery('.shopcarUl img').lazyload({
+                                effect: 'fadeIn',
+                                threshold: 200
+                            });
+                        },
+                        error: function () {
+                            
+                            appcan.window.openToast("请求失败", 2500, 5, 0)
+                        }
+                    })
+
+                }
+                else {
+                    $(".empty").removeClass("uhide");
+                }
+
+            }
+            else {
+                appcan.request.ajax({
+                    url: url + "/GoodCart/GetGoodCart",
+                    dataType: "json",
+                    type: "Post",
+                    data: $.extend({}, sendtoken()),
+                    success: function (data) {
+
+                        appcan.shopcar({
+                            selector: ".shopcarUl",
+                            data: data,
+                            page: "index",
+                            empty: ".empty"
+                        });
+                        jQuery('.shopcarUl img').lazyload({
+                            effect: 'fadeIn',
+                            threshold: 200
+                        });
+                    },
+                    error: function () {
+                        
+                        appcan.window.openToast("请求失败", 2500, 5, 0)
+                    }
+                })
+            }
+
+        }
+        window.reload();
+    })
+</script>

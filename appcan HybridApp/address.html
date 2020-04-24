@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="StyleSheet/iconfont.css" />
+
+    <link rel="stylesheet" href="css/ui-box.css" />
+    
+    <link rel="stylesheet" href="css/ui-color.css" />
+    <link rel="stylesheet" href="css/appcan.control.css" />
+    <link rel="stylesheet" href="StyleSheet/StyleSheetBase.css" />
+    <link rel="stylesheet" href="StyleSheet/stylesheet.css" />
+</head>
+<body class="um-vp">
+    <div class="page bc-bg headPlaceholder">
+        <div id="header" class="head  head-detail">
+            <div class="nav-left nav-left-active">
+                <div class="iconfont icon-fanhui fa-1-3x"></div>
+            </div>
+            <div class="nav-center">邮寄地址</div>
+            <div class="nav-right">
+            </div>
+        </div>
+        <style>
+            .divShengfen {
+                padding: 0.1em;
+                margin-top: 0.3em;
+            }
+
+                .divShengfen select {
+                    font-size: 1em;
+                    height: 2em;
+                    background-color: #fafafa;
+                    margin-bottom: 0.3em;
+                }
+
+            input[type=text] {
+                font-size: 1em;
+                height: 2em;
+            }
+
+            textarea {
+                font-size: 1em;
+                width: 100%;
+                line-height: 2em;
+            }
+
+            fieldset {
+                margin: 0.3em;
+                border: 1px solid #ccc;
+                padding: 0.3em;
+            }
+
+            table {
+                width: 100%;
+            }
+        </style>
+        <form>
+            <div class="divShengfen backgoundColor">
+                <fieldset>
+                    <legend>收货地址</legend>
+                    <table>
+                        <tr>
+                            <td style="width: 5em;">省份</td>
+                            <td>
+                                <select class="select" name="province" id="s1">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>市</td>
+                            <td>
+                                <select class="select" name="city" id="s2">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>县、区</td>
+                            <td>
+                                <select class="select" name="town" id="s3">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>详细地址</td>
+                            <td>
+                                <textarea rows="4" name="xiangxidizhi" placeholder="建议您如实填写详细收货地址，例如街道名称，门牌号码，楼层和房间号等信息"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>手机号码</td>
+                            <td>
+                                <input type="text" name="tel" placeholder="手机号码" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>收件人</td>
+                            <td>
+                                <input type="text" name="people" placeholder="收件人姓名" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+
+            </div>
+            <div class="buttonDiv">
+
+                <span class="input"   id="submit" >确认</span>
+            </div>
+
+            <input id="address" name="address" type="hidden" value="" />
+
+        </form>
+
+    </div>
+
+
+</body>
+</html>
+<script src="JavaScirptPlugIn/jquery.js"></script>
+<script src="JavaScirptPlugIn/jquery.mobile.custom.js"></script>
+<script src="JavaScirptPlugIn/underscore.js"></script>
+<script src="JavaScirptPlugIn/backbone.js"></script>
+<script src="js/appcan.base.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="JavaScript/geo.js"></script>
+<script src="JavaScript/common.js"></script>
+<script>
+    appcan.ready(function () {
+        var request = JSON.parse(localStorage.getItem("request"));
+        appcan.button(".nav-left", "ani-act", function () {
+            appcan.window.close(-1);
+
+        })
+
+        window.promptinfo = function () {
+            var address = document.getElementById('address');
+            var s1 = document.getElementById('s1');
+            var s2 = document.getElementById('s2');
+            var s3 = document.getElementById('s3');
+            address.value = s1.value + s2.value + s3.value;
+        }
+        setup();
+        window.promptinfo();
+        function telcheck() {
+            var tel = $("input[name=tel]").val();
+            var Reg = !!tel.match(/^(0|86|17951)?(1[234578])[0-9]{9}$/);
+            if (Reg == false) {
+                appcan.window.openToast("手机号码不正确", 2500, 5, 0)
+                return false;
+            }
+            return true;
+        }
+
+        function xiangxidizhicheck() {
+            var xiangxidizhi = $.trim($("[name=xiangxidizhi]").val());
+            if (xiangxidizhi.length == 0) {
+                appcan.window.openToast("详细地址不能为空", 2500, 5, 0)
+                return false;
+            }
+            return true;
+        }
+
+        function shengfencheck() {
+            var xiangxidizhi = $.trim($("[name=province]").val());
+            if (xiangxidizhi == "省份") {
+                appcan.window.openToast("省份不能为空", 2500, 5, 0)
+                return false;
+            }
+            return true;
+        }
+        function citycheck() {
+            var xiangxidizhi = $.trim($("[name=city]").val());
+            if (xiangxidizhi == "市") {
+                appcan.window.openToast("市不能为空", 2500, 5, 0)
+                return false;
+            }
+            return true;
+        }
+        function peoplecheck() {
+            var people = $.trim($("[name=people]").val());
+            if (people.length == 0) {
+                appcan.window.openToast("收件人不能为空", 2500, 5, 0)
+                return false;
+            }
+            return true;
+        }
+        $("#submit").on("tap", function () {
+            if (shengfencheck() && citycheck() && xiangxidizhicheck() && telcheck() && peoplecheck()) {
+                address = {};
+                address.provincecity = $.trim($("[name=province]").val()) + " " + $.trim($("[name=city]").val());
+                address.xiangxidizhi = $.trim($("[name=xiangxidizhi]").val());
+                address.tel = $.trim($("[name=tel]").val());
+                address.people = $.trim($("[name=people]").val());
+                if (localStorage.getItem("authentication_token") == null) {
+                    localStorage.setItem("cache_address", JSON.stringify(address));
+                    appcan.window.evaluateScript("shoporder", 'reload();');
+                    appcan.window.close(0, 0);
+                }
+                else {
+                    appcan.request.ajax({
+                        url: url + "/user/setUserAddress",
+                        dataType: "json",
+                        type: "Post",
+                        data: $.extend({
+                            provincecity: address.provincecity,
+                            xiangxidizhi: address.xiangxidizhi,
+                            tel: address.tel,
+                            people: address.people
+                        }, sendtoken()),
+                        success: function (data) {
+                            appcan.window.evaluateScript("shoporder", 'reload();');
+                            appcan.window.close(0, 0);
+                        }
+                    })
+
+                }
+
+
+
+            }
+        })
+    })
+</script>
